@@ -1,0 +1,34 @@
+{
+    "name":         "libra/",
+    "type":         "library",
+    //"version":      "0.0.1",
+    "description":  "Skeleton module for Libra CMS",
+    "keywords":     ["zf", "zf2", "zendframework", "cms"],
+    "homepage":     "http://www.libra-cms.ejoom.com",
+    "time":         "2012-05-16",
+    "licence":      "BSD-3-Clause",
+    "authors": [
+        {'name': 'duke', 'email': 'duke@ejoom.com', 'role': 'maintainer', 'homepage': 'http://www.ejoom.com'}
+    ],
+
+    "require": {
+        "php":          ">=5.3.3"
+    },
+
+    "require-dev": {
+        
+    },
+
+    "autoload": {
+        "psr-0": {"Libra\\Skeleton": "src"}
+    },
+
+    "provide": {
+      
+    },
+
+    "sugest": {
+
+    }
+
+}
