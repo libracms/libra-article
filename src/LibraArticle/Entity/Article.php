@@ -2,22 +2,99 @@
 
 namespace LibraArticle\Entity;
 
-use Serializable;
-
 /**
  * Description of Article
  *
  * @author duke
+ * @Entity(repositoryClass="LibraArticle\Entity\Article")
+ * @Table(name="article_dcm",
+ *      uniqueConstraints = {
+ *          @UniqueConstraint(name="alias",columns={"locale", "alias"}),
+ *          @UniqueConstraint(name="uid",columns={"uid", "locale"})
+ *      },
+ *      indexes = {
+ *          @Index(name="state", columns={"state"}),
+ *          @Index(name="locale", columns={"locale"})
+ *      }
+ * )
  */
-class Article implements Serializable
+class Article
 {
-    protected $articleId;
+    const STATE_UNPUBLISHED = 'unpublished';
+    const STATE_PUBLISHED   = 'published';
+    const STATE_TRASHED     = 'trashed';
+
+    protected $states = array(
+        STATE_UNPUBLISHED,
+        STATE_PUBLISHED,
+        STATE_TRASHED,
+    );
+
+    /**
+     * @Id @GeneratedValue @Column(type="integer")
+     * @var int
+     */
+    protected $id;
+    /**
+     * @Column(length=10)
+     * @var string
+     */
+    protected $locale;
+    /**
+     * @Column
+     * @var string
+     */
     protected $title;
+    /**
+     * @Column
+     * @var string
+     */
     protected $alias;
-    protected $params;
-    protected $content;
+    /**
+     * @Column(length=64)
+     * @var string
+     */
+    protected $uid;
+    /**
+     * @Column(type="datetime")
+     * @var \Zend\Date\Date
+     */
     protected $created;
+    /**
+     * @Column(type="integer")
+     * @var int
+     */
+    protected $createdBy;
+    /**
+     * @Column(type="datetime")
+     * @var \Zend\Date\Date
+     */
     protected $modified;
+    /**
+     * @Column(type="integer")
+     * @var int
+     */
+    protected $modifiedBy;
+    /**
+     * @Column(type="integer")
+     * @var int
+     */
+    protected $ordering;
+    /**
+     * @Column(type="string")
+     * @var string
+     */
+    protected $state;
+    /**
+     * @Column(type="text")
+     * @var string
+     */
+    protected $content;
+    /**
+     * @Column(type="array")
+     * @var \Zend\Stdlib\Parameters
+     */
+    protected $params;
 
     public function __call($name, $args)
     {
@@ -146,6 +223,20 @@ class Article implements Serializable
     public function getModifiedUtc()
     {
         return $this->modified->setTimezone('UTC');
+    }
+
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    public function setState($state)
+    {
+        if (!in_array($state, $this->states)) {
+            throw new \InvalidArgumentException(sprintf("Invalid state: %1"), $state);
+        }
+        $this->state = $state;
+        return $this;
     }
 
     public function toArray()

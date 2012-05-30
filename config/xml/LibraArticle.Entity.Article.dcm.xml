@@ -13,6 +13,7 @@
         <field name="alias"     type="string"   length="255"/>
         <field name="uid"       type="string"   length="64"/>
         <field name="created"   type="date"/>
+        <field name="createdBy" type="integer"/>
     </entity>
 
 </doctrine-mapping>
