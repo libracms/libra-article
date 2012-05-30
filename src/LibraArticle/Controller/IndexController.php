@@ -29,9 +29,9 @@ class IndexController extends ActionController
 
         //require_once 'Entities/User.php';
         //require_once 'Entities/Address.php';
-        $q = $this->mapper->em->createQuery('select  u from LibraArticle\Entity\User u where u.name = ?1');
-        $q->setParameter(1, 'Garfield');
-        $resultSet = $q->getResult();
+        //$q = $this->mapper->em->createQuery('select  u from LibraArticle\Entity\User u where u.name = ?1');
+        //$q->setParameter(1, 'Garfield');
+        //$resultSet = $q->getResult();
         return new ViewModel(array(
             'alias' => $alias,
             'resultSet' => $resultSet,
