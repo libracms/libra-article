@@ -5,15 +5,30 @@ return array(
             'libra-article' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/article[/:controller[/:action[/:id]]]',
+                    'route' => '/article[/:alias]',
                     'constraints' => array(
-                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'alias'      => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'module'  => 'libra-article',
+                        'controller' => 'index',
+                        'action'     => 'index',
+                        'alias'      => 'homepage',
+                    ),
+                )
+            ),
+            'libra-article-admin' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/article/:controller[/:action[/:id]]',
+                    'constraints' => array(
+                        'controller' => 'admin-[a-zA-Z][a-zA-Z0-9_-]*',
                         'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id'         => '[a-zA-Z0-9_-]*',
                     ),
                     'defaults' => array(
                         'module'  => 'libra-article',
-                        'controller' => 'index',
+                        'controller' => 'admin-index',
                         'action'     => 'index',
                     ),
                 )
@@ -22,7 +37,8 @@ return array(
     ),
     'controller' => array(
         'classes' => array(
-            'libra-article-index' => 'LibraArticle\Controller\IndexController',
+            'libra-article-index'       => 'LibraArticle\Controller\IndexController',
+            'libra-article-admin-index' => 'LibraArticle\Controller\AdminIndexController',
         ),
     ),
     'view_manager' => array(
