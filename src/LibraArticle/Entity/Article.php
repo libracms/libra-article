@@ -6,8 +6,8 @@ namespace LibraArticle\Entity;
  * Description of Article
  *
  * @author duke
- * @Entity(repositoryClass="LibraArticle\Entity\Article")
- * @Table(name="article_dcm",
+ * @Entity(repositoryClass="LibraArticle\Repository\ArticleRepository")
+ * @Table(name="article",
  *      uniqueConstraints = {
  *          @UniqueConstraint(name="alias",columns={"locale", "alias"}),
  *          @UniqueConstraint(name="uid",columns={"uid", "locale"})
@@ -25,9 +25,9 @@ class Article
     const STATE_TRASHED     = 'trashed';
 
     protected $states = array(
-        STATE_UNPUBLISHED,
-        STATE_PUBLISHED,
-        STATE_TRASHED,
+        self::STATE_UNPUBLISHED,
+        self::STATE_PUBLISHED,
+        self::STATE_TRASHED,
     );
 
     /**
@@ -44,7 +44,7 @@ class Article
      * @Column
      * @var string
      */
-    protected $title;
+    protected $headline;
     /**
      * @Column
      * @var string
@@ -96,29 +96,15 @@ class Article
      */
     protected $params;
 
-    public function __call($name, $args)
-    {
-        if (substr($name, 0, 3) == 'set') {
-            $name = lcfirst(substr($name, 3));
-            $this->$name = $args[0];
-            return $this;
-        } else if (substr($name, 0, 3) == 'get') {
-                $name = lcfirst(substr($name, 3));
-                return $this->$name;
-        } else {
-                return null;
-        }
-    }
-
     /**
      * Set id.
      *
      * @param int $id the value to be set
      * @return Article
      */
-    public function setArticleId($articleId)
+    public function setId($articleId)
     {
-        $this->articleId = (int) $articleId;
+        $this->id = (int) $articleId;
         return $this;
     }
 
@@ -127,9 +113,151 @@ class Article
      *
      * @return int id
      */
-    public function getArticleId()
+    public function getId()
     {
-        return $this->articleId;
+        return $this->id;
+    }
+
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+        return $this;
+    }
+
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+    public function setHeadline($headline)
+    {
+        $this->headline = $headline;
+        return $this;
+    }
+
+    public function getHeadline()
+    {
+        return $this->headline;
+    }
+
+    public function setAlias($alias)
+    {
+        $this->alias = $alias;
+        return $alias;
+    }
+
+    public function getAlias()
+    {
+        return $this->alias;
+    }
+
+    public function setUid($uid)
+    {
+        $this->uid = $uid;
+        return $this;
+    }
+
+    public function getUid()
+    {
+        return $this->uid;
+    }
+
+    public function setCreated($datetime)
+    {
+        if ($datetime instanceof Date) {
+        } else {
+            $this->created = new Date($datetime);
+            //$this->created =  new Date($created . ' UTC');
+            //$this->setTimezone(date_default_timezone_get());
+        }
+        return $this;
+    }
+
+    public function getCreated()
+    {
+        return $this->created->setTimezone(date_default_timezone_get());
+    }
+
+    public function getCreatedUtc()
+    {
+        return $this->created->setTimezone('UTC');
+    }
+    
+    public function setCreatedBy($createdBy)
+    {
+        $this->createdBy = $createdBy;
+        return $this;
+    }
+
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    public function setModified($datetime)
+    {
+        if ($datetime instanceof Date) {
+        } else {
+            $this->modified = new Date($datetime);
+        }
+        return $this;
+    }
+
+    public function getModified()
+    {
+        return $this->modified->setTimezone(date_default_timezone_get());
+    }
+
+    public function getModifiedUtc()
+    {
+        return $this->modified->setTimezone('UTC');
+    }
+
+    public function setModifiedBy($modifiedBy)
+    {
+        $this->modifiedBy = $modifiedBy;
+        return $this;
+    }
+
+    public function getModifiedBy($modifiedBy)
+    {
+        return $this->modifiedBy;
+    }
+
+    public function setOrdering($ordering)
+    {
+        $this->ordering = $ordering;
+        return $this;
+    }
+
+    public function getOrdering()
+    {
+        return $this->ordering;
+    }
+
+    public function setContent($content)
+    {
+        $this->content = $content;
+        return $this;
+    }
+
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    public function setState($state)
+    {
+        if (!in_array($state, $this->states)) {
+            throw new \InvalidArgumentException(sprintf("Invalid state: %1"), $state);
+        }
+        $this->state = $state;
+        return $this;
+    }
+
+    public function getState()
+    {
+        return $this->state;
     }
 
     public function setParams($params)
@@ -161,82 +289,6 @@ class Article
             return $default;
         }
         return $this->params->$name;
-    }
-
-    public function setTitle($title)
-    {
-        $this->title = $title;
-        return $this;
-    }
-
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    public function setContent($content)
-    {
-        $this->content = $content;
-        return $this;
-    }
-
-    public function getContent()
-    {
-        return $this->content;
-    }
-
-    public function setCreated($datetime)
-    {
-        if ($datetime instanceof Date) {
-        } else {
-            $this->created = new Date($datetime);
-            //$this->created =  new Date($created . ' UTC');
-            //$this->setTimezone(date_default_timezone_get());
-        }
-        return $this;
-    }
-
-    public function getCreated()
-    {
-        return $this->created->setTimezone(date_default_timezone_get());
-    }
-
-    public function getCreatedUtc()
-    {
-        return $this->created->setTimezone('UTC');
-    }
-
-    public function setModified($datetime)
-    {
-        if ($datetime instanceof Date) {
-        } else {
-            $this->modified = new Date($datetime);
-        }
-        return $this;
-    }
-
-    public function getModified()
-    {
-        return $this->modified->setTimezone(date_default_timezone_get());
-    }
-
-    public function getModifiedUtc()
-    {
-        return $this->modified->setTimezone('UTC');
-    }
-
-    public function getState()
-    {
-        return $this->state;
-    }
-
-    public function setState($state)
-    {
-        if (!in_array($state, $this->states)) {
-            throw new \InvalidArgumentException(sprintf("Invalid state: %1"), $state);
-        }
-        $this->state = $state;
-        return $this;
     }
 
     public function toArray()

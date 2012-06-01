@@ -3,21 +3,29 @@
 namespace LibraArticle\Mapper;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * Description of ArticleMapper
+ * Mapper through Doctrine\ORM
  *
  * @author duke
  */
-class ArticleDoctrineMapper
+class ArticleDoctrineMapper //extends EntityRepository
 {
     //protected $tableName = 'content';
     //protected $fields = array('id' => 'id');
-    protected $primaryKey = 'article_id';
+    protected $primaryKey = 'id';
+    /**
+     *
+     * @var EntityManager
+     */
+    protected $em;
 
-    public function setEntityManager(EntityManager $em)
+    public function setEntityManager(EntityManager $em2)
     {
-        $this->em = $em;
+        $this->em = $em2;
+        return $this;
     }
 
     public function getRowObjectPrototype()
@@ -67,6 +75,11 @@ class ArticleDoctrineMapper
 
     public function findByAlias($alias, $locale = '')
     {
+        $articles = $this->em->getRepository('LibraArticle\Entity\Article');
+        $article = $articles->findOneBy(array('alias' => $alias));
+        return $article;
+
+
         $query = "SELECT * FROM article WHERE alias = '$alias' AND (locale='$locale' OR locale = '') ORDER BY locale DESC";
         $statement = $this->getTableGateway()->getAdapter()->createStatement($query);
         $result = $statement->execute();

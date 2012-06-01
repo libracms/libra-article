@@ -1,15 +1,16 @@
 <?php
 
-namespace LibraArticle\Model;
+namespace LibraArticle\Mapper;
 
 use Doctrine\ORM\EntityManager;
 
 /**
- * Description of ArticleMapper
+ * Description of ArticleDbMapper
+ * Mapper through Zend\Db
  *
  * @author duke
  */
-class ArticleMapper
+class ArticleDbMapper
 {
     //protected $tableName = 'content';
     //protected $fields = array('id' => 'id');

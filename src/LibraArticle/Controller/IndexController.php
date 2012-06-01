@@ -8,39 +8,37 @@ use LibraArticle\Mapper\ArticleDoctrineMapper;
 
 class IndexController extends ActionController
 {
-    /**
-     *
-     * @var \Doctrine\ORM\EntityManager
-     */
+    protected $model;
     protected $em;
-
-
-    public function indexAction()
-    {
-        $alias = $this->getEvent()->getRouteMatch()->getParam('alias');
-        $coll = new \Doctrine\Common\Collections\ArrayCollection();
-
-        // Create a simple "default" Doctrine ORM configuration for XML Mapping
-        $isDevMode = true;
-        $config = \Doctrine\ORM\Tools\Setup::createXMLMetadataConfiguration(array(__DIR__."/xml"), $isDevMode);
-        // or if you prefer yaml or annotations
-        //$config = Setup::createAnnotationMetadataConfiguration(array(__DIR__."/entities"), $isDevMode);
-        //$config = Setup::createYAMLMetadataConfiguration(array(__DIR__."/config/yaml"), $isDevMode);
-
-        //require_once 'Entities/User.php';
-        //require_once 'Entities/Address.php';
-        //$q = $this->mapper->em->createQuery('select  u from LibraArticle\Entity\User u where u.name = ?1');
-        //$q->setParameter(1, 'Garfield');
-        //$resultSet = $q->getResult();
-        return new ViewModel(array(
-            'alias' => $alias,
-            'resultSet' => $resultSet,
-        ));
-    }
 
     public function setMapper(ArticleDoctrineMapper $mapper)
     {
         $this->mapper = $mapper;
+    }
+
+    public function setEntityManager(\Doctrine\ORM\EntityManager $em)
+    {
+        $this->em = $em;
+    }
+
+    public function setModel($model)
+    {
+        $this->model = $model;
+        return $this;
+    }
+
+    /**
+     * Display the article
+     * @return \Zend\View\Model\ViewModel
+     */
+    public function indexAction()
+    {
+        $params = $this->getEvent()->getRouteMatch()->getParams();
+        $article = $this->model->getArticle($params);
+        return new ViewModel(array(
+            'alias' => $params['alias'],
+            'article' => $article,
+        ));
     }
 
 }

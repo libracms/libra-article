@@ -4,14 +4,23 @@ return array(
     ),
     'LibraArticle\Controller\IndexController' => array(
         'parameters' => array(
-            'mapper' => 'LibraArticle\Mapper\ArticleDoctrineMapper',
+            //'em'      => 'Doctrine\ORM\EntityManager',
+            //'mapper' => 'LibraArticle\Mapper\ArticleDoctrineMapper',
+            //'repository' => 'LibraArticle\Repository\ArticleRepository',
+            'model' => 'LibraArticle\Model\ArticleModel',
         ),
     ),
-    'LibraArticle\Mapper\ArticleDoctrineMapper' => array(
+/*    'LibraArticle\Repository\ArticleRepository' => array(
         'parameters' => array(
-            'em' => 'Doctrine\ORM\EntityManager',
+            'em'    => 'Doctrine\ORM\EntityManager',
+            'class' => 'LibraArticle\Entity\Article', //@todo need remake to send string instead of object
         ),
     ),
+/*    'LibraArticle\Model\ArticleModel' => array(
+        'parameters' => array(
+            'repository' => 'LibraArticle\Repository\ArticleRepository',
+        ),
+    ),*/
     'orm_driver_chain' => array(
         'parameters' => array(
             'drivers' => array(
