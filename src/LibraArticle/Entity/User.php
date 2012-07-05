@@ -2,19 +2,21 @@
 
 namespace LibraArticle\Entity;
 
-/** @Entity @Table(name="users") */
+use Doctrine\ORM\Mapping as ORM;
+
+/** @ORM\Entity @ORM\Table(name="users") */
 class User
 {
     /**
-     * @Id @Column(type="integer")
-     * @GeneratedValue(strategy="AUTO")
+     * @ORM\Id @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-    /** @Column(type="string", length=50) */
+    /** @ORM\Column(type="string", length=50) */
     private $name;
     /**
-     * @OneToOne(targetEntity="Address", inversedBy="user")
-     * @JoinColumn(name="address_id", referencedColumnName="id")
+     * @ORM\OneToOne(targetEntity="Address", inversedBy="user")
+     * @ORM\JoinColumn(name="address_id", referencedColumnName="id")
      */
     private $address;
 

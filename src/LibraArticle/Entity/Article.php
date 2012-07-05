@@ -2,19 +2,21 @@
 
 namespace LibraArticle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Description of Article
  *
  * @author duke
- * @Entity(repositoryClass="LibraArticle\Repository\ArticleRepository")
- * @Table(name="article",
+ * @ORM\Entity(repositoryClass="LibraArticle\Repository\ArticleRepository")
+ * @ORM\Table(name="article",
  *      uniqueConstraints = {
- *          @UniqueConstraint(name="alias",columns={"locale", "alias"}),
- *          @UniqueConstraint(name="uid",columns={"uid", "locale"})
+ *          @ORM\UniqueConstraint(name="alias",columns={"locale", "alias"}),
+ *          @ORM\UniqueConstraint(name="uid",columns={"uid", "locale"})
  *      },
  *      indexes = {
- *          @Index(name="state", columns={"state"}),
- *          @Index(name="locale", columns={"locale"})
+ *          @ORM\Index(name="state", columns={"state"}),
+ *          @ORM\Index(name="locale", columns={"locale"})
  *      }
  * )
  */
@@ -31,67 +33,68 @@ class Article
     );
 
     /**
-     * @Id @GeneratedValue @Column(type="integer")
+     * @ORM\Id @ORM\GeneratedValue @ORM\Column(type="integer")
      * @var int
      */
     protected $id;
     /**
-     * @Column(length=10)
+     * @ORM\Column(length=10)
      * @var string
      */
     protected $locale;
     /**
-     * @Column
+     * @ORM\Column
      * @var string
      */
     protected $headline;
     /**
-     * @Column
+     * @ORM\Column
      * @var string
      */
     protected $alias;
     /**
-     * @Column(length=64)
+     * Unique identifier
+     * @ORM\Column(length=64)
      * @var string
      */
     protected $uid;
     /**
-     * @Column(type="datetime")
+     * @ORM\Column(type="datetime")
      * @var \Zend\Date\Date
      */
     protected $created;
     /**
-     * @Column(type="integer")
+     * @ORM\Column(type="integer")
      * @var int
      */
     protected $createdBy;
     /**
-     * @Column(type="datetime")
+     * @ORM\Column(type="datetime")
      * @var \Zend\Date\Date
      */
     protected $modified;
     /**
-     * @Column(type="integer")
+     * @ORM\Column(type="integer")
      * @var int
      */
     protected $modifiedBy;
     /**
-     * @Column(type="integer")
+     * @ORM\Column(type="integer")
      * @var int
      */
     protected $ordering;
     /**
-     * @Column(type="string")
+     * @ORM\Column(type="string")
      * @var string
      */
     protected $state;
     /**
-     * @Column(type="text")
+     * @ORM\Column(type="text")
      * @var string
      */
     protected $content;
     /**
-     * @Column(type="array")
+     * @ORM\Column(type="array")
      * @var \Zend\Stdlib\Parameters
      */
     protected $params;

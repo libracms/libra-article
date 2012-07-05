@@ -2,17 +2,19 @@
 
 namespace LibraArticle\Entity;
 
-/** @Entity @Table(name="addresses") */
+use Doctrine\ORM\Mapping as ORM;
+
+/** @ORM\Entity @ORM\Table(name="addresses") */
 class Address
 {
     /**
-     * @Id @Column(type="integer")
-     * @GeneratedValue(strategy="AUTO")
+     * @ORM\Id @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-    /** @Column(type="string", length=255) */
+    /** @ORM\Column(type="string", length=255) */
     private $street;
-    /** @OneToOne(targetEntity="User", mappedBy="address") */
+    /** @ORM\OneToOne(targetEntity="User", mappedBy="address") */
     private $user;
 
     public function getId()

@@ -1,1 +1,24 @@
-<div class="page-header"><h1>Libra Article Admin</h1></div>
+<div class="span12">
+    <div class="page-header"><h1>Libra Article Admin</h1></div>
+    <form id="contents" method="post">
+    <table class="table table-bordered table-striped table-condensed">
+        <thead>
+            <tr>
+                <th width="1%"><?php echo $this->_('#') ?></th>
+                <th><?php echo $this->_('Headline') ?></th>
+                <th><?php echo $this->_('Alias') ?></th>
+                <th><?php echo $this->_('Published') ?></th>
+                <th><?php echo $this->_('Created') ?></th>
+                <th><?php echo $this->_('Order') ?></th>
+                <th width="1%"><?php echo $this->_('Id') ?></th>
+            </tr>
+        </thead>
+        <!--tfoot>
+            <tr><td class="centered" colspan="100">paging</td></tr>
+        </tfoot-->
+        <tbody>
+            <?php echo $this->partialLoop('libra-article/admin-index/articles-tr', array($articles)) ?>
+        </tbody>
+    </table>
+    </form>
+</div><!--/span-->

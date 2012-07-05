@@ -2,30 +2,13 @@
 
 namespace LibraArticle\Controller;
 
-use Zend\Mvc\Controller\ActionController,
-    Zend\View\Model\ViewModel;
+use Zend\View\Model\ViewModel;
 use LibraArticle\Mapper\ArticleDoctrineMapper;
 
-class IndexController extends ActionController
+class IndexController extends AbstractArticleController
 {
-    protected $model;
-    protected $em;
-
-    public function setMapper(ArticleDoctrineMapper $mapper)
-    {
-        $this->mapper = $mapper;
-    }
-
-    public function setEntityManager(\Doctrine\ORM\EntityManager $em)
-    {
-        $this->em = $em;
-    }
-
-    public function setModel($model)
-    {
-        $this->model = $model;
-        return $this;
-    }
+    protected $class = 'Article';
+    protected $entityName = 'LibraArticle\Entity\Article';
 
     /**
      * Display the article
@@ -34,11 +17,27 @@ class IndexController extends ActionController
     public function indexAction()
     {
         $params = $this->getEvent()->getRouteMatch()->getParams();
-        $article = $this->model->getArticle($params);
-        return new ViewModel(array(
+        //$article = $this->model->getArticle($params);
+        $criteria = array(
+            'alias'  => $params['alias'],
+            'locale' => array('', 'en_GB', 'ru_RU'),
+        );
+        $article = $this->getRepository()->findOneBy($criteria);
+        $view = new ViewModel(array(
             'alias' => $params['alias'],
             'article' => $article,
         ));
+        
+        if (!$article) {
+            return $this->notFoundAction();
+            //$view->setTemplate('libra-article/index/article-not-found');
+        }
+        return $view;
+    }
+
+    public function setClassName($className = 'Article')
+    {
+        $this->class = $className;
     }
 
 }

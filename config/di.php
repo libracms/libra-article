@@ -34,6 +34,7 @@ return array(
                 */
                 'libra_article_annotation_driver' => array(
                     'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+                    'cache' => 'array',
                     'namespace' => 'LibraArticle\Entity',
                     'paths' => array(__DIR__ . '/../src/LibraArticle/Entity'),
                 ),
