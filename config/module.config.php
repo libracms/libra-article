@@ -38,8 +38,8 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'libra-article-index'       => 'LibraArticle\Controller\IndexController',
-            'libra-article-admin-index' => 'LibraArticle\Controller\AdminIndexController',
+            'libra-article/index'       => 'LibraArticle\Controller\IndexController',
+            'libra-article/admin-index' => 'LibraArticle\Controller\AdminIndexController',
         ),
     ),
     'view_manager' => array(
