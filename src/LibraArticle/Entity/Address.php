@@ -4,7 +4,10 @@ namespace LibraArticle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/** @ORM\Entity @ORM\Table(name="addresses") */
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="addresses")
+ */
 class Address
 {
     /**
