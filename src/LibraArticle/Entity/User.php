@@ -4,7 +4,7 @@ namespace LibraArticle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/** @ORM\Entity @ORM\Table(name="users") */
+/** @ORM\Entity @ORM\Table(name="users_orm") */
 class User
 {
     /**

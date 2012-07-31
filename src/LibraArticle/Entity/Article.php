@@ -3,6 +3,7 @@
 namespace LibraArticle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Libra\Entity\AbstractEntityParams;
 
 /**
  * Description of Article
@@ -20,7 +21,7 @@ use Doctrine\ORM\Mapping as ORM;
  *      }
  * )
  */
-class Article
+class Article extends AbstractEntityParams
 {
     const STATE_UNPUBLISHED = 'unpublished';
     const STATE_PUBLISHED   = 'published';
@@ -93,11 +94,6 @@ class Article
      * @var string
      */
     protected $content;
-    /**
-     * @ORM\Column(type="array")
-     * @var \Zend\Stdlib\Parameters
-     */
-    protected $params;
 
     /**
      * Set id.
@@ -261,37 +257,6 @@ class Article
     public function getState()
     {
         return $this->state;
-    }
-
-    public function setParams($params)
-    {
-        if ($params === '' || $params === null) $params = new Parameters;
-        if ($params instanceof Prameters) {
-            $this->params = $params;
-        } else if (is_object($params)) {
-            $this->params = new Parameters((array)$params);
-        } else if (is_array($params)) {
-            $this->params = new Parameters($params);
-        } else {
-            $this->params = unserialize($params);
-            if ($this->params === false) {
-                trigger_error('Can\'t unserialize params');
-            }
-        }
-        return $this;
-    }
-
-    public function getParams()
-    {
-        return $this->params;
-    }
-
-    public function getParam($name, $default = null)
-    {
-        if (!isset($this->params->$name)) {
-            return $default;
-        }
-        return $this->params->$name;
     }
 
     public function toArray()
