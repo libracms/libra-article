@@ -18,21 +18,25 @@ return array(
                     ),
                 )
             ),
-            'libra-article-admin' => array(
-                'type' => 'Segment',
-                'options' => array(
-                    'route' => '/article/:controller[/:action[/:id]]',
-                    'constraints' => array(
-                        'controller' => 'admin-[a-zA-Z][a-zA-Z0-9_-]*',
-                        'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id'         => '[a-zA-Z0-9_-]*',
+            'admin' => array(
+                'child_routes' => array(
+                    'libra-article' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/article[/:controller[/:action[/:id]]]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id'         => '[a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                'module'     => 'libra-article',
+                                'controller' => 'index',
+                                'action'     => 'index',
+                            ),
+                        )
                     ),
-                    'defaults' => array(
-                        'module'     => 'libra-article',
-                        'controller' => 'admin-index',
-                        'action'     => 'index',
-                    ),
-                )
+                ),
             ),
         ),
     ),

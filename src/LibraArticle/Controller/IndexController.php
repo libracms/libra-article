@@ -16,22 +16,24 @@ class IndexController extends AbstractArticleController
      */
     public function indexAction()
     {
-        $params = $this->getEvent()->getRouteMatch()->getParams();
+        $routeMatch = $this->getEvent()->getRouteMatch();
+        $alias = $routeMatch->getParam('alias', $routeMatch->getParam('param'));   //'param' if called by default router
         //$article = $this->model->getArticle($params);
         $criteria = array(
-            'alias'  => $params['alias'],
+            'alias'  => $alias,
             'locale' => array('', 'en_GB', 'ru_RU'),
         );
         $article = $this->getRepository()->findOneBy($criteria);
-        $view = new ViewModel(array(
-            'alias' => $params['alias'],
-            'article' => $article,
-        ));
-        
+
         if (!$article) {
             return $this->notFoundAction();
-            //$view->setTemplate('libra-article/index/article-not-found');
         }
+
+        $view = new ViewModel(array(
+            'alias' => $alias,
+            'article' => $article,
+        ));
+
         return $view;
     }
 
