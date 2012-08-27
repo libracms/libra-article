@@ -1,0 +1,38 @@
+<?php
+$articles = (array)$this->vars();
+unset ($articles['partialCounter']);
+$col = null;
+$col->headline = '';
+$col->alias = '';
+$col->published = '';
+$col->created = '';
+$col->ordering = '';
+$col->id = '';
+?>
+<tr>
+  <td style="vertical-align: middle"><?php echo $this->partialCounter ?></td>
+  <?php foreach ($articles as $article) {
+    $col->headline      .= $this->partial('libra-article/admin-article-restful/articles-td-headline', $article);
+    $col->alias         .= $this->partial('libra-article/admin-article-restful/articles-td-alias', $article);
+    $col->published     .= $this->partial('libra-article/admin-article-restful/articles-td-published', $article);
+    $col->created       .= $this->partial('libra-article/admin-article-restful/articles-td-created', $article);
+    $col->ordering      .= $this->partial('libra-article/admin-article-restful/articles-td-ordering', $article);
+    $col->id            .= $this->partial('libra-article/admin-article-restful/articles-td-id', $article);
+  }
+  //$url = $this->url('default', array('controller' => 'content', 'action' => 'edit', 'param' => 0, 'param2' => $article['uid']));
+  ?>
+  <td>
+    <ul class="unstyled">
+      <li style="float: right;">
+        <a href="<?php //echo $url ?>" class="icon-plus" title="Add article to this group"></a>
+      </li>
+      <?php echo $col->headline ?>
+    </ul>
+  </td>
+  <td><ul class="unstyled"><?php echo $col->alias ?></ul></td>
+  <td><ul class="unstyled"><?php echo $col->published ?></ul></td>
+  <td><ul class="unstyled"><?php echo $col->created ?></ul></td>
+  <td><ul class="unstyled"><?php echo $col->ordering ?></ul></td>
+  <td><ul class="unstyled"><?php echo $col->id ?></ul></td>
+</tr>
+

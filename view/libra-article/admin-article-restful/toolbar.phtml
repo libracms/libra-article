@@ -1,0 +1,34 @@
+<div class="span12" id="toolbar-box">
+    <div id="toolbar" class="btn-toolbar">
+      <div class="btn-group">
+          <button class="btn" title="Add New"
+            form="<?php echo $formId ?>"
+            formmethod="<?php echo $buttons->addnew->method ?: 'GET' ?>"
+            formaction="<?php echo $buttons->addnew->formAction ?>"
+          >
+            <span class="icon-plus"></span>
+          </button>
+          <button class="btn" title="Publish"
+            form="<?php echo $formId ?>"
+            formaction="<?php echo $buttons->publish->formAction ?>"
+          >
+            <span class="icon-ok"></span>
+          </button>
+          <button class="btn"  title="Unpublish"
+            form="<?php echo $formId ?>"
+            formaction="<?php echo $buttons->unpublish->formAction ?>"
+          >
+            <span class="icon-off"></span>
+          </button>
+      </div>
+      <div class="btn-group">
+          <button class="btn" title="Delete" form="<?php echo $formId ?>"
+            formaction="<?php echo $buttons->delete->formAction ?>"
+            onclick="return confirm('You couldn\'t revert it. Are you shure?')"
+          >
+            <span class="icon-remove"></span>
+          </button>
+      </div>
+    </div>
+    <h1><?php echo $heading ?></h1>
+</div><!--/span-->

@@ -4,8 +4,9 @@ return array(
         'routes' => array(
             'libra-article' => array(
                 'type' => 'Segment',
+                'priority' => -100,
                 'options' => array(
-                    'route' => '/article[/:alias]',
+                    'route' => '[/:alias]',
                     'constraints' => array(
                         'alias'      => '[a-zA-Z][a-zA-Z0-9_-]*',
                     ),
@@ -21,20 +22,61 @@ return array(
             'admin' => array(
                 'child_routes' => array(
                     'libra-article' => array(
-                        'type' => 'Segment',
+                        'type' => 'Literal',
                         'options' => array(
-                            'route' => '/article[/:controller[/:action[/:id]]]',
-                            'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id'         => '[a-zA-Z0-9_-]*',
-                            ),
+                            'route' => '/article',
                             'defaults' => array(
                                 'module'     => 'libra-article',
-                                'controller' => 'index',
-                                'action'     => 'index',
                             ),
-                        )
+                        ),
+                        'may_terminate' => true,
+                        'child_routes' => array(
+                            'default' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/article[/:controller[/:action[/:id]]]',
+                                    'constraints' => array(
+                                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                        'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                        'id'         => '[a-zA-Z0-9_-]*',
+                                    ),
+                                    'defaults' => array(
+                                        'controller' => 'index',
+                                        'action'     => 'index',
+                                    ),
+                                ),
+                            ),
+                            'index' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '[/:action][/:id]',
+                                    'constraints' => array(
+                                        'id'         => '[0-9]*',
+                                    ),
+                                    'defaults' => array(
+                                        'controller' => 'admin-index',
+                                        'action'     => 'index',
+                                    ),
+                                ),
+                            ),
+                            'article' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/[:id]',
+                                    'constraints' => array(
+                                        'id'         => '[0-9]*',
+                                    ),
+                                    'defaults' => array(
+                                        'controller' => 'admin-article-restful',
+                                    ),
+                                ),
+                                'child_routes' => array(
+                                    'query' => array(
+                                        'type' => 'Query',
+                                    ),
+                                ),
+                            ),
+                        ),
                     ),
                 ),
             ),
@@ -44,6 +86,7 @@ return array(
         'invokables' => array(
             'libra-article/index'       => 'LibraArticle\Controller\IndexController',
             'libra-article/admin-index' => 'LibraArticle\Controller\AdminIndexController',
+            'libra-article/admin-article-restful' => 'LibraArticle\Controller\AdminArticleRestfulController',
         ),
     ),
     'view_manager' => array(

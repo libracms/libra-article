@@ -19,11 +19,7 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
 
     public function getConfig()
     {
-        $config = include __DIR__ . '/config/module.config.php';
-        $configDi['di']['instance'] = include __DIR__ . '/config/di.php';
-        $config = array_merge_recursive($config, $configDi);
-        $config = array_merge_recursive($config, include __DIR__ . '/config/libra-article.php');
-        return $config;
+        return include __DIR__ . '/config/module.config.php';
     }
 
     public function getAutoloaderConfig()
