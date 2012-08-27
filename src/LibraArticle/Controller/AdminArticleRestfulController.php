@@ -14,9 +14,7 @@ class AdminArticleRestfulController extends AbstractRestfulController
 
     public function getList()
     {
-        $params = $this->getEvent()->getRouteMatch()->getParams();
         $articles = $this->getRepository()->findAll();
-
         $view = new ViewModel(array(
             'articles' => $articles,
         ));
@@ -25,7 +23,6 @@ class AdminArticleRestfulController extends AbstractRestfulController
 
     public function get($id)
     {
-        $id = $this->params('id');
         $article = $this->getRepository()->find($id);
 
         return new ViewModel(array(
@@ -36,6 +33,20 @@ class AdminArticleRestfulController extends AbstractRestfulController
     public function create($data)
     {
         $form = $this->getForm();
+        $filter = new \LibraArticle\Form\ArticleFilter;
+        $form->setInputFilter($filter);
+        $form->setData($data);
+        if (!empty($data) && $form->isValid()) {
+            $model = new \LibraArticle\Model\ArticleModel($this->getEntityManager());
+            $id = $model->createArticleFromForm($form->getData());
+            if ($id > 0) {
+                $this->getResponse()->setStatusCode(201);
+                return $this->redirect()->toRoute('admin/libra-article/article/' . $id);
+            }
+        }
+        return new ViewModel(array(
+            'form' => $form,
+        ));
     }
 
     public function update($id, $data)
@@ -48,8 +59,13 @@ class AdminArticleRestfulController extends AbstractRestfulController
 
     }
 
+    /**
+     *
+     * @return \LibraArticle\Form\ArticleForm
+     */
     public function getForm()
     {
+        return new \LibraArticle\Form\ArticleForm;
         return $this->serviceLocator()->get('LibraArticle\Form\ArticleForm');
     }
 

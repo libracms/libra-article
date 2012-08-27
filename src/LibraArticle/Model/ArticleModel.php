@@ -56,4 +56,18 @@ class ArticleModel
         return $article;
     }
 
+    public function createArticleFromForm($data)
+    {
+        $article = new Article();
+        $article->setCreated(date());
+        $article->setHeadline($data['headline']);
+        $article->setAlias($data['alias']);
+        $params = serialize(array($data['metaKeys'], $data['metaDescription']));
+        $article->setParams($params);
+        $article->setContent($data['content']);
+        $this->em->persist();
+        $this->em->flush($this->entityName);
+        return $article->getId();
+    }
+
 }

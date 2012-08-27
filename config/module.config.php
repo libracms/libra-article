@@ -70,6 +70,7 @@ return array(
                                         'controller' => 'admin-article-restful',
                                     ),
                                 ),
+                                'may_terminate' => true,
                                 'child_routes' => array(
                                     'query' => array(
                                         'type' => 'Query',
