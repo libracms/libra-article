@@ -1,5 +1,26 @@
-<div id="toolbar-box">
-    <div id="toolbar" class="btn-toolbar">
+<?php
+$data = array(
+    'heading'   => 'Libra Article Admin',
+    'formId'    => 'articles',
+    'buttons'   => (object) array(
+        'addnew' => (object) array(
+            'formAction' => $this->url('admin/libra-article/list', array('action' => 'edit')),
+            'method' => 'GET',
+        ),
+        'publish' => (object) array(
+            'formAction' => $this->url('admin/libra-article/list', array('action' => 'publish')),
+        ),
+        'unpublish' => (object) array(
+            'formAction' => $this->url('admin/libra-article/list', array('action' => 'unpublish')),
+        ),
+        'delete' => (object) array(
+            'formAction' => $this->url('admin/libra-article/list', array('action' => 'delete')),
+        ),
+    ),
+);
+extract($data);
+?>
+    <div class="btn-toolbar pull-right">
       <div class="btn-group">
           <button class="btn" title="Add New"
             form="<?php echo $formId ?>"
@@ -31,4 +52,3 @@
       </div>
     </div>
     <div class="page-header"><h1><?php echo $heading ?></h1></div>
-</div><!--/span-->

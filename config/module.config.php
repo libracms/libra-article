@@ -64,16 +64,31 @@ return array(
                                     ),
                                 ),
                             ),
-                            'index' => array(
+                            'list' => array(
                                 'type' => 'Segment',
                                 'options' => array(
-                                    'route' => '/[:action][/:id]',
+                                    'route' => '/list[/:action][/:id]',
                                     'constraints' => array(
+                                        'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
                                         'id'         => '[0-9]*',
                                     ),
                                     'defaults' => array(
-                                        'controller' => 'admin-index',
+                                        'controller' => 'admin-article-list',
                                         'action'     => 'list',
+                                    ),
+                                ),
+                            ),
+                            'article' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/article/:action[/:id]',
+                                    'constraints' => array(
+                                        'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                        'id'         => '[0-9]*',
+                                    ),
+                                    'defaults' => array(
+                                        'controller' => 'admin-article-list',
+                                        'action'     => 'edit',
                                     ),
                                 ),
                             ),
@@ -85,8 +100,9 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'libra-article/index'       => 'LibraArticle\Controller\IndexController',
-            'libra-article/admin-index' => 'LibraArticle\Controller\AdminIndexController',
+            'libra-article/index'           => 'LibraArticle\Controller\IndexController',
+            'libra-article/admin-article-list'    => 'LibraArticle\Controller\AdminArticleListController',
+            'libra-article/admin-article'         => 'LibraArticle\Controller\AdminArticleController',
             'libra-article/admin-article-restful' => 'LibraArticle\Controller\AdminArticleRestfulController',
         ),
     ),

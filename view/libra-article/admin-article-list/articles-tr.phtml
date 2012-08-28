@@ -12,12 +12,12 @@ $col->id = '';
 <tr>
   <td style="vertical-align: middle"><?php echo $this->partialCounter ?></td>
   <?php foreach ($articles as $article) {
-    $col->headline      .= $this->partial('libra-article/admin-index/articles-td-headline', $article);
-    $col->alias         .= $this->partial('libra-article/admin-index/articles-td-alias', $article);
-    $col->published     .= $this->partial('libra-article/admin-index/articles-td-published', $article);
-    $col->created       .= $this->partial('libra-article/admin-index/articles-td-created', $article);
-    $col->ordering      .= $this->partial('libra-article/admin-index/articles-td-ordering', $article);
-    $col->id            .= $this->partial('libra-article/admin-index/articles-td-id', $article);
+    $col->headline      .= $this->partial('libra-article/admin-article-list/articles-td-headline', $article);
+    $col->alias         .= $this->partial('libra-article/admin-article-list/articles-td-alias', $article);
+    $col->published     .= $this->partial('libra-article/admin-article-list/articles-td-published', $article);
+    $col->created       .= $this->partial('libra-article/admin-article-list/articles-td-created', $article);
+    $col->ordering      .= $this->partial('libra-article/admin-article-list/articles-td-ordering', $article);
+    $col->id            .= $this->partial('libra-article/admin-article-list/articles-td-id', $article);
   }
   //$url = $this->url('default', array('controller' => 'content', 'action' => 'edit', 'param' => 0, 'param2' => $article['uid']));
   ?>

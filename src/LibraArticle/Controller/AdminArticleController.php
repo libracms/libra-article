@@ -6,7 +6,7 @@ use Zend\View\Model\ViewModel;
 use Zend\Stdlib\RequestInterface as Request;
 use Zend\Stdlib\ResponseInterface as Response;
 
-class AdminIndexController extends AbstractArticleController
+class AdminArticleController extends AbstractArticleController
 {
     protected $class = 'Article';
 
