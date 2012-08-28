@@ -36,6 +36,7 @@ class ArticleForm extends Form
             ),
             'attributes' => array(
                 'type' => 'text',
+                'class' => 'span12',
             ),
         ));
         $this->add(array(
@@ -45,6 +46,7 @@ class ArticleForm extends Form
             ),
             'attributes' => array(
                 'type' => 'text',
+                'class' => 'span12',
             ),
         ));
         $this->add(array(
@@ -54,6 +56,7 @@ class ArticleForm extends Form
             ),
             'attributes' => array(
                 'type' => 'text',
+                'class' => 'span12',
             ),
         ));
         $this->add(array(
@@ -63,6 +66,7 @@ class ArticleForm extends Form
             ),
             'attributes' => array(
                 'type' => 'text',
+                'class' => 'span12',
             ),
         ));
         $this->add(array(
@@ -72,16 +76,18 @@ class ArticleForm extends Form
             ),
             'attributes' => array(
                 'type' => 'ckeditor',
+                'rows' => 8,
+                'class' => 'span12',
             ),
         ));
         $this->add(array(
             'name' => 'submit',
             'options' => array(
-                'label' => 'Send',
+                'label' => 'Save',
             ),
             'attributes' => array(
                 'type' => 'submit',
-                'value' => 'Send',
+                'value' => 'Save',
                 'formmethod' => 'POST',
             ),
         ));

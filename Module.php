@@ -36,8 +36,10 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
         return array(
             'Zend\Loader\ClassMapAutoloader' => array(
                 array(
-                    'CKEditor' => 'public/vendor/ckeditor/ckeditor.php',
-                    'CKFinder' => 'public/vendor/ckfinder/ckfinder.php',
+                    'CKEditor' => __DIR__ . '/src/ckeditor_php5.php',
+                    //'CKEditor' => 'public/vendor/ckeditor/ckeditor.php',
+                    'CKFinder' => __DIR__ . '/src/ckfinder_php5.php',
+                    //'CKFinder' => 'public/vendor/ckfinder/ckfinder.php',
                 ),
             ),
             'Zend\Loader\StandardAutoloader' => array(
