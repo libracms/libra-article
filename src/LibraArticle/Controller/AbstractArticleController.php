@@ -91,6 +91,9 @@ abstract class AbstractArticleController extends AbstractActionController
      */
     public function getModel()
     {
+        if ($this->model === null) {
+            $this->model = new ArticleModel($this->getEntityManager());
+        }
         return $this->model;
     }
 

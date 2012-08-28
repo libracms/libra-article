@@ -87,7 +87,7 @@ return array(
                                         'id'         => '[0-9]*',
                                     ),
                                     'defaults' => array(
-                                        'controller' => 'admin-article-list',
+                                        'controller' => 'admin-article',
                                         'action'     => 'edit',
                                     ),
                                 ),

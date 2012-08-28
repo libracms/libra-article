@@ -22,7 +22,7 @@ class ArticleForm extends Form
     public function __construct($name = 'articleForm')
     {
         parent::__construct($name);
-        $this->setAttribute('method', 'PUT');
+        $this->setAttribute('method', 'POST');
         $this->add(array(
             'name' => 'id',
             'attributes' => array(
@@ -71,7 +71,7 @@ class ArticleForm extends Form
                 'label' => 'Content:',
             ),
             'attributes' => array(
-                'type' => 'textarea',
+                'type' => 'ckeditor',
             ),
         ));
         $this->add(array(
@@ -82,7 +82,7 @@ class ArticleForm extends Form
             'attributes' => array(
                 'type' => 'submit',
                 'value' => 'Send',
-                'method' => 'POST',
+                'formmethod' => 'POST',
             ),
         ));
 

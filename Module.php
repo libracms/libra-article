@@ -17,6 +17,15 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
         $moduleManager->getEventManager()->attach('loadModules.post', array($this, 'setOptions'));
     }
 
+    public function getViewHelperConfig()
+    {
+        return array(
+            'invokables' => array(
+                'formCkeditor' => 'LibraArticle\View\Helper\FormCkeditor',
+            ),
+        );
+    }
+
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
@@ -25,6 +34,12 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
     public function getAutoloaderConfig()
     {
         return array(
+            'Zend\Loader\ClassMapAutoloader' => array(
+                array(
+                    'CKEditor' => 'public/vendor/ckeditor/ckeditor.php',
+                    'CKFinder' => 'public/vendor/ckfinder/ckfinder.php',
+                ),
+            ),
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,

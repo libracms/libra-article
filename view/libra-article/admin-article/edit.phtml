@@ -2,5 +2,31 @@
     <?php echo $this->render('libra-article/admin-article-list/toolbar') ?>
 </section>
 <section>
-    form
+<?php
+    $form->prepare();
+    $form->setAttribute('action', $this->url('admin/libra-article/article', array('id' => $article->getId())));
+    echo $this->form()->openTag($form);
+    echo $this->formInput($form->get('id'));
+    echo $this->formElementErrors($form->get('id'));
+    echo $this->formLabel($form->get('headline'));
+    echo $this->formInput($form->get('headline'));
+    echo $this->formElementErrors($form->get('headline'));
+    echo $this->formLabel($form->get('alias'));
+    echo $this->formInput($form->get('alias'));
+    echo $this->formElementErrors($form->get('alias'));
+    echo $this->formLabel($form->get('metaKeys'));
+    echo $this->formInput($form->get('metaKeys'));
+    echo $this->formElementErrors($form->get('metaKeys'));
+    echo $this->formLabel($form->get('metaDescription'));
+    echo $this->formInput($form->get('metaDescription'));
+    echo $this->formElementErrors($form->get('metaDescription'));
+    echo $this->formLabel($form->get('content'));
+    echo $this->formCkeditor($form->get('content'));
+    echo $this->formElementErrors($form->get('content'));
+    echo '<br />';
+    echo $this->formElement($form->get('csrf'));
+    echo $this->formElementErrors($form->get('csrf'));
+    echo $this->formSubmit($form->get('submit'));
+?>
+<?php echo $this->form()->closeTag() ?>
 </section>

@@ -64,7 +64,7 @@ class ArticleModel
         $article->setCreated(null);
         $article->setHeadline($data['headline']);
         $article->setAlias($data['alias']);
-        $article->setParams(array($data['metaKeys'], $data['metaDescription']));
+        $article->setParams(array('metaKeys' => $data['metaKeys'], 'metaDescription' => $data['metaDescription']));
         $article->setContent($data['content']);
         $article->setLocale('');
         $article->setUid(uniqid());
@@ -83,10 +83,13 @@ class ArticleModel
     {
         $article = $this->getRepository()->find($id);
         $article->setHeadline($data['headline']);
+        $article->setAlias($data['alias']);
+        $article->setModified(null);
+        $article->setContent($data['content']);
+        $article->setParams(array('metaKeys' => $data['metaKeys'], 'metaDescription' => $data['metaDescription']));
         $this->em->persist($article);
-        //$this->em->flush($article);
-        $this->em->flush();
-        return true;
+        $this->em->flush($article);
+        return $article;
     }
 
 }
