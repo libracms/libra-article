@@ -9,6 +9,7 @@
 namespace LibraArticle\Form;
 
 use Zend\Form\Form;
+use Zend\Form\Element;
 
 
 /**
@@ -21,6 +22,7 @@ class ArticleForm extends Form
     public function __construct($name = 'articleForm')
     {
         parent::__construct($name);
+        $this->setAttribute('method', 'PUT');
         $this->add(array(
             'name' => 'id',
             'attributes' => array(
@@ -83,11 +85,8 @@ class ArticleForm extends Form
                 'method' => 'POST',
             ),
         ));
-        $this->add(array(
-            'name' => 'csrf',
-            'attributes' => array(
-                'type' => 'csrf',
-            ),
-        ));
+
+        $csrf = new Element\Csrf('csrf');
+        $this->add($csrf);
     }
 }

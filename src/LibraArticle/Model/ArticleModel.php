@@ -29,6 +29,7 @@ class ArticleModel
     {
         $entityName = 'LibraArticle\Entity\Article';
         $this->repository = $em->getRepository($entityName);
+        $this->em = $em;
     }
 
     public function setRepository(ArticleRepository $repository)
@@ -59,15 +60,33 @@ class ArticleModel
     public function createArticleFromForm($data)
     {
         $article = new Article();
-        $article->setCreated(date());
+        $article->setId($data['id']);
+        $article->setCreated(null);
         $article->setHeadline($data['headline']);
         $article->setAlias($data['alias']);
-        $params = serialize(array($data['metaKeys'], $data['metaDescription']));
-        $article->setParams($params);
+        $article->setParams(array($data['metaKeys'], $data['metaDescription']));
         $article->setContent($data['content']);
-        $this->em->persist();
-        $this->em->flush($this->entityName);
+        $article->setLocale('');
+        $article->setUid(uniqid());
+        $article->setCreatedBy(0);
+        $article->setModified(null);
+        $article->setModifiedBy(0);
+        $article->setOrdering(0);
+        $article->setState(\LibraArticle\Entity\Article::STATE_PUBLISHED);
+        $this->em->persist($article);
+        $this->em->flush($article);
         return $article->getId();
+    }
+
+
+    public function updateArticle($id, $data)
+    {
+        $article = $this->getRepository()->find($id);
+        $article->setHeadline($data['headline']);
+        $this->em->persist($article);
+        //$this->em->flush($article);
+        $this->em->flush();
+        return true;
     }
 
 }

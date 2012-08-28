@@ -23,9 +23,24 @@ class AdminArticleRestfulController extends AbstractRestfulController
 
     public function get($id)
     {
+        /**
+         * @var \LibraArticle\Entity\Article Description
+         */
         $article = $this->getRepository()->find($id);
 
+        $form = $this->getForm();
+        $filter = new \LibraArticle\Form\ArticleFilter;
+        $form->setInputFilter($filter);
+        $data['id'] = $article->getId();
+        $data['headline'] = $article->getHeadline();
+        $data['alias'] = $article->getAlias();
+        $data['metaKeys'] = $article->getParam('metaKeys');
+        $data['metaDescription'] = $article->getParam('metaDescription');
+        $data['content'] = $article->getContent();
+        $form->setData($data);
+
         return new ViewModel(array(
+            'form' => $form,
             'article' => $article,
         ));
     }
@@ -51,7 +66,21 @@ class AdminArticleRestfulController extends AbstractRestfulController
 
     public function update($id, $data)
     {
-
+        $form = $this->getForm();
+        $filter = new \LibraArticle\Form\ArticleFilter;
+        $form->setInputFilter($filter);
+        $form->setData($data);
+        if (!empty($data) && $form->isValid()) {
+            $model = new \LibraArticle\Model\ArticleModel($this->getEntityManager());
+            $result = $model->updateArticle($id, $form->getData());
+            if ($result) {
+                //$this->getResponse()->setStatusCode(201);
+                return $this->redirect()->toRoute('admin/libra-article/article/' . $id);
+            }
+        }
+        return new ViewModel(array(
+            'form' => $form,
+        ));
     }
 
     public function delete($id)

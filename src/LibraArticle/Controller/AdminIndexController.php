@@ -10,7 +10,7 @@ class AdminIndexController extends AbstractArticleController
 {
     protected $class = 'Article';
 
-    public function indexAction()
+    public function listAction()
     {
         $params = $this->getEvent()->getRouteMatch()->getParams();
         $articles = $this->getRepository()->findAll();

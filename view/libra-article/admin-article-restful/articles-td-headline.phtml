@@ -1,4 +1,4 @@
-<?php $url = $this->url('default', array('controller' => 'content', 'action' => 'edit', 'param' => $id)) ?>
+<?php $url = $this->url('admin/libra-article/article', array('id' => $id)) ?>
 <li>
     <input type="checkbox" name="ids[]" value="<?php echo $id ?>"/>&nbsp;
     <a href="<?php echo $url ?>"><?php echo $headline ?></a>

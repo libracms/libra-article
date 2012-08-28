@@ -46,19 +46,6 @@ return array(
                                     ),
                                 ),
                             ),
-                            'index' => array(
-                                'type' => 'Segment',
-                                'options' => array(
-                                    'route' => '[/:action][/:id]',
-                                    'constraints' => array(
-                                        'id'         => '[0-9]*',
-                                    ),
-                                    'defaults' => array(
-                                        'controller' => 'admin-index',
-                                        'action'     => 'index',
-                                    ),
-                                ),
-                            ),
                             'article' => array(
                                 'type' => 'Segment',
                                 'options' => array(
@@ -74,6 +61,19 @@ return array(
                                 'child_routes' => array(
                                     'query' => array(
                                         'type' => 'Query',
+                                    ),
+                                ),
+                            ),
+                            'index' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/[:action][/:id]',
+                                    'constraints' => array(
+                                        'id'         => '[0-9]*',
+                                    ),
+                                    'defaults' => array(
+                                        'controller' => 'admin-index',
+                                        'action'     => 'list',
                                     ),
                                 ),
                             ),

@@ -4,6 +4,7 @@ namespace LibraArticle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Libra\Entity\AbstractEntityParams;
+use DateTime;
 
 /**
  * Description of Article
@@ -163,9 +164,9 @@ class Article extends AbstractEntityParams
 
     public function setCreated($datetime)
     {
-        if ($datetime instanceof Date) {
+        if ($datetime instanceof DateTime) {
         } else {
-            $this->created = new Date($datetime);
+            $this->created = new DateTime($datetime);
             //$this->created =  new Date($created . ' UTC');
             //$this->setTimezone(date_default_timezone_get());
         }
@@ -195,9 +196,9 @@ class Article extends AbstractEntityParams
 
     public function setModified($datetime)
     {
-        if ($datetime instanceof Date) {
+        if ($datetime instanceof DateTime) {
         } else {
-            $this->modified = new Date($datetime);
+            $this->modified = new DateTime($datetime);
         }
         return $this;
     }
