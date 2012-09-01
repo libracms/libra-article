@@ -4,7 +4,7 @@
 <section>
 <?php
     $form->prepare();
-    $form->setAttribute('action', $this->url('admin/libra-article/article', array('id' => $article->getId())));
+    $form->setAttribute('action', $this->url('admin/libra-article/article', array('id' => $id)));
     echo $this->form()->openTag($form);
     echo $this->formInput($form->get('id'));
     echo $this->formElementErrors($form->get('id'));
