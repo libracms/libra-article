@@ -8,13 +8,13 @@ $data = array(
             'method' => 'GET',
         ),
         'publish' => (object) array(
-            'formAction' => $this->url('admin/libra-article/list', array('action' => 'publish')),
+            'formAction' => $this->url('admin/libra-article/articles', array('action' => 'publish')),
         ),
         'unpublish' => (object) array(
-            'formAction' => $this->url('admin/libra-article/list', array('action' => 'unpublish')),
+            'formAction' => $this->url('admin/libra-article/articles', array('action' => 'unpublish')),
         ),
         'delete' => (object) array(
-            'formAction' => $this->url('admin/libra-article/list', array('action' => 'delete')),
+            'formAction' => $this->url('admin/libra-article/articles', array('action' => 'delete')),
         ),
     ),
 );

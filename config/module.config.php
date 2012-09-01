@@ -46,7 +46,7 @@ return array(
                                     ),
                                 ),
                             ),
-                            'article' => array(
+                            'article-restful' => array(
                                 'type' => 'Segment',
                                 'options' => array(
                                     'route' => '/[:id]',
@@ -64,17 +64,17 @@ return array(
                                     ),
                                 ),
                             ),
-                            'list' => array(
+                            'articles' => array(
                                 'type' => 'Segment',
                                 'options' => array(
-                                    'route' => '/list[/:action][/:id]',
+                                    'route' => '/articles[/:action][/:id]',
                                     'constraints' => array(
                                         'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
                                         'id'         => '[0-9]*',
                                     ),
                                     'defaults' => array(
-                                        'controller' => 'admin-article-list',
-                                        'action'     => 'list',
+                                        'controller' => 'admin-articles',
+                                        'action'     => 'view',
                                     ),
                                 ),
                             ),
@@ -101,7 +101,7 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'libra-article/index'           => 'LibraArticle\Controller\IndexController',
-            'libra-article/admin-article-list'    => 'LibraArticle\Controller\AdminArticleListController',
+            'libra-article/admin-articles'        => 'LibraArticle\Controller\AdminArticlesController',
             'libra-article/admin-article'         => 'LibraArticle\Controller\AdminArticleController',
             'libra-article/admin-article-restful' => 'LibraArticle\Controller\AdminArticleRestfulController',
         ),

@@ -6,11 +6,11 @@ use Zend\View\Model\ViewModel;
 use Zend\Stdlib\RequestInterface as Request;
 use Zend\Stdlib\ResponseInterface as Response;
 
-class AdminArticleListController extends AbstractArticleController
+class AdminArticlesController extends AbstractArticleController
 {
     protected $class = 'Article';
 
-    public function listAction()
+    public function viewAction()
     {
         $params = $this->getEvent()->getRouteMatch()->getParams();
         $articles = $this->getRepository()->findAll();

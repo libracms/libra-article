@@ -1,5 +1,5 @@
 <section id="toolbar">
-    <?php echo $this->render('libra-article/admin-article-list/toolbar') ?>
+    <?php echo $this->render('libra-article/admin-articles/toolbar') ?>
 </section>
 <section>
     <form id="articles" method="post">
@@ -19,7 +19,7 @@
             <tr><td class="centered" colspan="100">paging</td></tr>
         </tfoot-->
         <tbody>
-            <?php echo $this->partialLoop('libra-article/admin-article-list/articles-tr', array($articles)) ?>
+            <?php echo $this->partialLoop('libra-article/admin-articles/articles-tr', array($articles)) ?>
         </tbody>
     </table>
     </form>
