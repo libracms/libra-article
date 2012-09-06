@@ -5,13 +5,15 @@
 
 <div class="row-fluid" id="articles-container">
   <div class="span12">
-        <div><?php echo $this->messages[0] ?></div>
+      <?php if (!empty($this->messages)): ?>
+      <p class="text-info"><?php echo $this->messages[0] ?></p>
+      <?php endif ?>
         <form id="articles" method="post">
         <table class="table table-bordered table-striped table-condensed">
             <thead>
                 <tr>
                     <th width="1%"><?php echo $this->translate('#') ?></th>
-                    <th><?php echo $this->translate('Headline') ?></th>
+                    <th><?php echo $this->translate('Heading') ?></th>
                     <th><?php echo $this->translate('Alias') ?></th>
                     <th><?php echo $this->translate('Published') ?></th>
                     <th><?php echo $this->translate('Created') ?></th>

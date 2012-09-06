@@ -1,3 +1,8 @@
-<div class="page-header"><h1>Libra Article</h1></div>
+<?php
+    $this->headTitle($article->getParam('headTitle') ?: $article->getHeading());
+    $this->headMeta($article->getParam('metaKeywords'), 'keywords');
+    $this->headMeta($article->getParam('metaDescription'), 'description');
+?>
+<div class="page-header"><h1><?php echo $article->getHeading() ?></h1></div>
 <p><?php echo $article->getContent() ?></p>
 <p><?php echo $this->translate('TRANSLATED TEXT') ?></p>

@@ -62,9 +62,13 @@ class ArticleModel
         $article = new Article();
         $article->setId($data['id']);
         $article->setCreated(null);
-        $article->setHeadline($data['headline']);
+        $article->setHeading($data['heading']);
         $article->setAlias($data['alias']);
-        $article->setParams(array('metaKeys' => $data['metaKeys'], 'metaDescription' => $data['metaDescription']));
+        $article->setParams(array(
+            'headTitle' => $data['headTitle'],
+            'metaKeywords' => $data['metaKeywords'],
+            'metaDescription' => $data['metaDescription']
+        ));
         $article->setContent($data['content']);
         $article->setLocale('');
         $article->setUid(uniqid());
@@ -82,11 +86,15 @@ class ArticleModel
     public function updateArticle($id, $data)
     {
         $article = $this->getRepository()->find($id);
-        $article->setHeadline($data['headline']);
+        $article->setHeading($data['heading']);
         $article->setAlias($data['alias']);
         $article->setModified(null);
         $article->setContent($data['content']);
-        $article->setParams(array('metaKeys' => $data['metaKeys'], 'metaDescription' => $data['metaDescription']));
+        $article->setParams(array(
+            'headTitle' => $data['headTitle'],
+            'metaKeywords' => $data['metaKeywords'],
+            'metaDescription' => $data['metaDescription']
+        ));
         $this->em->persist($article);
         $this->em->flush($article);
         return $article;

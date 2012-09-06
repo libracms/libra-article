@@ -34,8 +34,8 @@ class ArticleFilter extends InputFilter
             ),
         ));
         $this->add(array(
-            'name'       => 'headline',
-            'required'   => true,
+            'name'       => 'heading',
+            'required'   => false,
             'filters'    => array(
                 array(
                     'name' => 'StringTrim',
@@ -52,7 +52,16 @@ class ArticleFilter extends InputFilter
             ),
         ));
         $this->add(array(
-            'name'       => 'metaKeys',
+            'name'       => 'headTitle',
+            'required'   => true,
+            'filters'    => array(
+                array(
+                    'name' => 'StringTrim',
+                ),
+            ),
+        ));
+        $this->add(array(
+            'name'       => 'metaKeywords',
             'required'   => false,
         ));
         $this->add(array(

@@ -39,6 +39,8 @@ class AdminArticleController extends AbstractArticleController
                 $this->getResponse()->setStatusCode(201);
                 //$this->flushMessanger('All OK);
                 return $this->redirect()->toRoute('admin/libra-article/article/', array('id' => $id));
+            } else {
+                $article = $this->getRepository()->find($id);
             }
         } elseif ($this->getRequest()->isGet()) {
             /**
@@ -47,9 +49,10 @@ class AdminArticleController extends AbstractArticleController
             $article = $this->getRepository()->find($id);
             if ($article) {
                 $data['id'] = $article->getId();
-                $data['headline'] = $article->getHeadline();
+                $data['heading'] = $article->getHeading();
                 $data['alias'] = $article->getAlias();
-                $data['metaKeys'] = $article->getParam('metaKeys');
+                $data['headTitle'] = $article->getParam('headTitle');
+                $data['metaKeywords'] = $article->getParam('metaKeywords');
                 $data['metaDescription'] = $article->getParam('metaDescription');
                 $data['content'] = $article->getContent();
                 $form->setData($data);

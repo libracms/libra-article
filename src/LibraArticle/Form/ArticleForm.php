@@ -30,9 +30,9 @@ class ArticleForm extends Form
             ),
         ));
         $this->add(array(
-            'name' => 'headline',
+            'name' => 'heading',
             'options' => array(
-                'label' => 'Headline: *',
+                'label' => 'Heading: *',
             ),
             'attributes' => array(
                 'type' => 'text',
@@ -50,9 +50,19 @@ class ArticleForm extends Form
             ),
         ));
         $this->add(array(
-            'name' => 'metaKeys',
+            'name' => 'headTitle',
             'options' => array(
-                'label' => 'Meta Keys:',
+                'label' => 'Head title:',
+            ),
+            'attributes' => array(
+                'type' => 'text',
+                'class' => 'span12',
+            ),
+        ));
+        $this->add(array(
+            'name' => 'metaKeywords',
+            'options' => array(
+                'label' => 'Meta Keywords:',
             ),
             'attributes' => array(
                 'type' => 'text',

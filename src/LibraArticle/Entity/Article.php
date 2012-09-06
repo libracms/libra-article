@@ -48,7 +48,7 @@ class Article extends AbstractEntityParams
      * @ORM\Column
      * @var string
      */
-    protected $headline;
+    protected $heading;
     /**
      * @ORM\Column
      * @var string
@@ -129,15 +129,15 @@ class Article extends AbstractEntityParams
         return $this->locale;
     }
 
-    public function setHeadline($headline)
+    public function setHeading($headline)
     {
-        $this->headline = $headline;
+        $this->heading = $headline;
         return $this;
     }
 
-    public function getHeadline()
+    public function getHeading()
     {
-        return $this->headline;
+        return $this->heading;
     }
 
     public function setAlias($alias)

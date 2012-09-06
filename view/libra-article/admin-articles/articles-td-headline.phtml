@@ -1,6 +1,6 @@
 <?php $url = $this->url('admin/libra-article/article', array('action' => 'edit', 'id' => $id)) ?>
 <li>
     <input type="checkbox" name="ids[]" value="<?php echo $id ?>"/>&nbsp;
-    <a href="<?php echo $url ?>"><?php echo $headline ?></a>
+    <a href="<?php echo $url ?>"><?php echo $heading ?></a>
     <span title="Locale">[<?php echo $locale ?: $this->translate('All') ?>]</span>
 </li>
