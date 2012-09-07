@@ -95,6 +95,7 @@ class ArticleModel
             'metaKeywords' => $data['metaKeywords'],
             'metaDescription' => $data['metaDescription']
         ));
+        $article->setRev($article->getRev() + 1);
         $this->em->persist($article);
         $this->em->flush($article);
         return $article;

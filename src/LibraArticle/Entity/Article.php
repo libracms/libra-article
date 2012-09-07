@@ -91,6 +91,11 @@ class Article extends AbstractEntityParams
      */
     protected $state;
     /**
+     * @ORM\Column(type="integer")
+     * @var int latest revision
+     */
+    protected $rev;
+    /**
      * @ORM\Column(type="text")
      * @var string
      */
@@ -258,6 +263,21 @@ class Article extends AbstractEntityParams
     public function getState()
     {
         return $this->state;
+    }
+
+    public function setRev($rev)
+    {
+        $this->rev = $rev;
+        return $this;
+    }
+
+    /**
+     *
+     * @return int latest revision
+     */
+    public function getRev()
+    {
+        return $this->rev;
     }
 
     public function toArray()
