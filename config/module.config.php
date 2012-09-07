@@ -6,15 +6,16 @@ return array(
                 'type' => 'Segment',
                 'priority' => -100,
                 'options' => array(
-                    'route' => '[/:alias]',
+                    'route' => '/:locale[/:alias]',
                     'constraints' => array(
                         'alias'      => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'locale'     => '[a-zA-Z][a-zA-Z_-]{1,9}',
                     ),
                     'defaults' => array(
                         //'__NAMESPACE__' => 'libra-article',
                         'module'     => 'libra-article',
-                        'controller' => 'index',
-                        'action'     => 'index',
+                        'controller' => 'article',
+                        'action'     => 'view',
                         'alias'      => 'homepage',
                     ),
                 )
@@ -100,7 +101,7 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'libra-article/index'           => 'LibraArticle\Controller\IndexController',
+            'libra-article/article'         => 'LibraArticle\Controller\ArticleController',
             'libra-article/admin-articles'        => 'LibraArticle\Controller\AdminArticlesController',
             'libra-article/admin-article'         => 'LibraArticle\Controller\AdminArticleController',
             'libra-article/admin-article-restful' => 'LibraArticle\Controller\AdminArticleRestfulController',

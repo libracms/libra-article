@@ -5,7 +5,7 @@ namespace LibraArticle\Controller;
 use Zend\View\Model\ViewModel;
 use LibraArticle\Mapper\ArticleDoctrineMapper;
 
-class IndexController extends AbstractArticleController
+class ArticleController extends AbstractArticleController
 {
     protected $class = 'Article';
     protected $entityName = 'LibraArticle\Entity\Article';
@@ -14,7 +14,7 @@ class IndexController extends AbstractArticleController
      * Display the article
      * @return \Zend\View\Model\ViewModel
      */
-    public function indexAction()
+    public function viewAction()
     {
         $routeMatch = $this->getEvent()->getRouteMatch();
         $alias = $routeMatch->getParam('alias', $routeMatch->getParam('param'));   //'param' if called by default router
