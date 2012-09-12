@@ -13,8 +13,8 @@
 
     "require": {
         "php":              ">=5.3.3",
-        "libra/libra":      "*",
-        "libra/libra-app":  "*"
+        "libra/libra":      "dev-default",
+        "libra/libra-app":  "dev-default"
     },
 
     "require-dev": {
@@ -34,8 +34,8 @@
       
     },
 
-    "sugest": {
-
+    "suggest": {
+        "libra/libra-locale": "Adds locale depending articles"
     }
 
 }
