@@ -24,6 +24,7 @@ class AdminArticleController extends AbstractArticleController
     public function editAction()
     {
         $id = (int) $this->params('id', 0);
+        $uid = $this->params()->fromQuery('uid', null);
         $form = $this->getForm();
         $filter = new \LibraArticle\Form\ArticleFilter;
         $form->setInputFilter($filter);
@@ -31,14 +32,19 @@ class AdminArticleController extends AbstractArticleController
         if ($this->getRequest()->isPost()) {
             $form->setData($this->params()->fromPost());
             if ($form->isValid()) {
-                if ($id === 0) {
-                    $id = $this->getModel()->createArticleFromForm($form->getData());
-                } else {
-                    $savedArticle = $this->getModel()->updateArticle($id, $form->getData());
+                try {
+                    if ($id === 0) {
+                        $id = $this->getModel()->createArticleFromForm($form->getData(), $uid);
+                    } else {
+                        $savedArticle = $this->getModel()->updateArticle($id, $form->getData());
+                    }
+                    $this->getResponse()->setStatusCode(201);
+                    $this->flashMessenger('libra-article-form')->addMessage('All OK');
+                    return $this->redirect()->toRoute('admin/libra-article/article', array('id' => $id));
+                } catch (\Doctrine\DBAL\DBALException $exc) {
+                    $this->flashMessenger('libra-article-form')->addMessage('DB error. May be duplicate entry. ' . $exc->getMessage());
+                    $article = $this->getRepository()->find($id);
                 }
-                $this->getResponse()->setStatusCode(201);
-                //$this->flushMessanger('All OK);
-                return $this->redirect()->toRoute('admin/libra-article/article/', array('id' => $id));
             } else {
                 $article = $this->getRepository()->find($id);
             }
@@ -55,6 +61,7 @@ class AdminArticleController extends AbstractArticleController
                 $data['metaKeywords'] = $article->getParam('metaKeywords');
                 $data['metaDescription'] = $article->getParam('metaDescription');
                 $data['content'] = $article->getContent();
+                $data['locale'] = $article->getLocale();
                 $form->setData($data);
             }
         }
@@ -63,6 +70,8 @@ class AdminArticleController extends AbstractArticleController
             'form' => $form,
             'article' => $article,
             'id'      => $id,
+            'uid'      => $uid,
+            'formErrorMessages' => $this->flashMessenger('libra-article-form'),
         ));
     }
 

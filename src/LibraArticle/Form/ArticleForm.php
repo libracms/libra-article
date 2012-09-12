@@ -29,6 +29,16 @@ class ArticleForm extends Form
                 'type' => 'hidden',
             ),
         ));
+        $locale = new Element\Select('locale', array(
+            'label' => 'Locale: *',
+            'value_options' => array(
+                '' => 'All',
+                'en_GB' => 'en_GB',
+                'ru_RU' => 'ru_RU',
+            ),
+        ));
+        $locale->setAttribute('class', 'span2');
+        $this->add($locale);
         $this->add(array(
             'name' => 'heading',
             'options' => array(

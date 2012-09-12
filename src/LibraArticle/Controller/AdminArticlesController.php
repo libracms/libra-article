@@ -13,11 +13,20 @@ class AdminArticlesController extends AbstractArticleController
 
     public function viewAction()
     {
-        $params = $this->getEvent()->getRouteMatch()->getParams();
-        $articles = $this->getRepository()->findAll();
+        $qb = $this->getRepository()->createQueryBuilder('a');
+        $qb->select('a.uid')
+           ->where('a.state = :state')
+           ->setParameter('state' , 'published')
+           ->addGroupBy('a.uid')
+           ->orderBy('a.ordering', 'ASC');
+        $uids = $qb->getQuery()->getArrayResult();
+        $groups = array();
+        foreach ($uids as $uid) {
+            $groups[$uid['uid']] = $this->getRepository()->findByUid($uid['uid'], array('locale' => 'ASC'));
+        }
 
         return new ViewModel(array(
-            'articles' => $articles,
+            'groups'   => $groups,
             'messages' => $this->flashMessenger()->getMessages(),
         ));
     }

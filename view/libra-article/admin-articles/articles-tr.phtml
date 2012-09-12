@@ -19,12 +19,12 @@ $col->id = '';
     $col->ordering      .= $this->partial('libra-article/admin-articles/articles-td-ordering', $article);
     $col->id            .= $this->partial('libra-article/admin-articles/articles-td-id', $article);
   }
-  //$url = $this->url('default', array('controller' => 'content', 'action' => 'edit', 'param' => 0, 'param2' => $article['uid']));
+  $url = $this->url('admin/libra-article/article/query', array('uid' => $article->getUid(), 'locale' => null));
   ?>
   <td>
     <ul class="unstyled">
       <li style="float: right;">
-        <a href="<?php //echo $url ?>" class="icon-plus" title="Add article to this group"></a>
+        <a href="<?php echo $url ?>" class="icon-plus" title="Add article to this group"></a>
       </li>
       <?php echo $col->headline ?>
     </ul>

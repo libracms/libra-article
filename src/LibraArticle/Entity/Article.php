@@ -40,10 +40,11 @@ class Article extends AbstractEntityParams
      */
     protected $id;
     /**
+     * all locales by default
      * @ORM\Column(length=10)
      * @var string
      */
-    protected $locale;
+    protected $locale = '*';
     /**
      * @ORM\Column
      * @var string

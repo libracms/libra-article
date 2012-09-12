@@ -6,7 +6,8 @@ return array(
                 'type' => 'Segment',
                 'priority' => -100,
                 'options' => array(
-                    'route' => '/:locale[/:alias]',
+                    'route' => '[/:alias]',
+                    'locale_aware' => true,
                     'constraints' => array(
                         'alias'      => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'locale'     => '[a-zA-Z][a-zA-Z_-]{1,9}',
@@ -44,6 +45,16 @@ return array(
                                     'defaults' => array(
                                         'controller' => 'index',
                                         'action'     => 'index',
+                                    ),
+                                ),
+                            ),
+                            'index' => array(
+                                'type' => 'Literal',
+                                'options' => array(
+                                    'route' => '/',
+                                    'defaults' => array(
+                                        'controller' => 'admin-articles',
+                                        'action'     => 'view',
                                     ),
                                 ),
                             ),
@@ -90,6 +101,13 @@ return array(
                                     'defaults' => array(
                                         'controller' => 'admin-article',
                                         'action'     => 'edit',
+                                        'id'         => 0,
+                                    ),
+                                ),
+                                'may_terminate' => true,
+                                'child_routes' => array(
+                                    'query' => array(
+                                        'type' => 'Query',
                                     ),
                                 ),
                             ),

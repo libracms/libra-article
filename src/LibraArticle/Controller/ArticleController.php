@@ -18,15 +18,21 @@ class ArticleController extends AbstractArticleController
     {
         $routeMatch = $this->getEvent()->getRouteMatch();
         $alias = $routeMatch->getParam('alias', $routeMatch->getParam('param'));   //'param' if called by default router
+        $locale = $routeMatch->getParam('locale');
         //$article = $this->model->getArticle($params);
         $criteria = array(
             'alias'  => $alias,
-            'locale' => array('', 'en_GB', 'ru_RU'),
+            'locale' => $locale,
         );
         $article = $this->getRepository()->findOneBy($criteria);
 
         if (!$article) {
-            return $this->notFoundAction();
+            //look for all '' locales
+            $criteria['locale'] = '';
+            $article = $this->getRepository()->findOneBy($criteria);
+            if (!$article) {
+                return $this->notFoundAction();
+            }
         }
 
         $view = new ViewModel(array(

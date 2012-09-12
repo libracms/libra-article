@@ -1,12 +1,22 @@
 <div class="row-fluid" id="articles-container">
   <div class="span12">
-      <div class="pull-right text-info"><?php echo $this->translate(sprintf('Revision: #%d', $article->getRev())) ?></div>
+      <div class="pull-right text-info"><?php echo $this->translate(sprintf('Revision: #%d', $article ? $article->getRev() : 0)) ?></div>
+      <?php 
+      if ($formErrorMessages->hasMessages()) { 
+        foreach ($formErrorMessages->getCurrentMessages() as $message) { ?>
+      <p class="text-info"><?php echo $this->escapeHtml($message) ?></p>
+      <?php
+        }
+      }?>
 <?php
     $form->prepare();
-    $form->setAttribute('action', $this->url('admin/libra-article/article', array('id' => $id)));
+    $form->setAttribute('action', $this->url('admin/libra-article/article/query', array('id' => $id, 'uid' => $uid, 'locale' => null)));
     echo $this->form()->openTag($form);
     echo $this->formInput($form->get('id'));
     echo $this->formElementErrors($form->get('id'));
+    echo $this->formLabel($form->get('locale'));
+    echo $this->formSelect($form->get('locale'));
+    echo $this->formElementErrors($form->get('locale'));
     echo $this->formLabel($form->get('heading'));
     echo $this->formInput($form->get('heading'));
     echo $this->formElementErrors($form->get('heading'));

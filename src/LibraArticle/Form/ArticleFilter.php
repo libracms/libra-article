@@ -34,8 +34,18 @@ class ArticleFilter extends InputFilter
             ),
         ));
         $this->add(array(
+            'name'        => 'locale',
+            'required'    => true,
+            'allow_empty' => true,
+            'filters'    => array(
+                array(
+                    'name' => 'StringTrim',
+                ),
+            ),
+        ));
+        $this->add(array(
             'name'       => 'heading',
-            'required'   => false,
+            'required'   => true,
             'filters'    => array(
                 array(
                     'name' => 'StringTrim',
@@ -53,7 +63,7 @@ class ArticleFilter extends InputFilter
         ));
         $this->add(array(
             'name'       => 'headTitle',
-            'required'   => true,
+            'required'   => false,
             'filters'    => array(
                 array(
                     'name' => 'StringTrim',

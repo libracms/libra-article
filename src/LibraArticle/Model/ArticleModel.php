@@ -57,7 +57,7 @@ class ArticleModel
         return $article;
     }
 
-    public function createArticleFromForm($data)
+    public function createArticleFromForm($data, $uid = null)
     {
         $article = new Article();
         $article->setId($data['id']);
@@ -77,6 +77,9 @@ class ArticleModel
         $article->setModifiedBy(0);
         $article->setOrdering(0);
         $article->setState(\LibraArticle\Entity\Article::STATE_PUBLISHED);
+        $article->setUid($uid ?: uniqid());
+        $article->setRev(0);
+        $article->setLocale($data['locale']);
         $this->em->persist($article);
         $this->em->flush($article);
         return $article->getId();
@@ -96,6 +99,7 @@ class ArticleModel
             'metaDescription' => $data['metaDescription']
         ));
         $article->setRev($article->getRev() + 1);
+        $article->setLocale($data['locale']);
         $this->em->persist($article);
         $this->em->flush($article);
         return $article;
