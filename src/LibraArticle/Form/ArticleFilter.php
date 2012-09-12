@@ -33,16 +33,18 @@ class ArticleFilter extends InputFilter
                 ),
             ),
         ));
-        $this->add(array(
-            'name'        => 'locale',
-            'required'    => true,
-            'allow_empty' => true,
-            'filters'    => array(
-                array(
-                    'name' => 'StringTrim',
+        if (class_exists('LibraLocale\Module')) {
+            $this->add(array(
+                'name'        => 'locale',
+                'required'    => true,
+                'allow_empty' => true,
+                'filters'    => array(
+                    array(
+                        'name' => 'StringTrim',
+                    ),
                 ),
-            ),
-        ));
+            ));
+        }
         $this->add(array(
             'name'       => 'heading',
             'required'   => true,

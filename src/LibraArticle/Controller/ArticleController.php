@@ -18,7 +18,7 @@ class ArticleController extends AbstractArticleController
     {
         $routeMatch = $this->getEvent()->getRouteMatch();
         $alias = $routeMatch->getParam('alias', $routeMatch->getParam('param'));   //'param' if called by default router
-        $locale = $routeMatch->getParam('locale');
+        $locale = $routeMatch->getParam('locale', '*');
         //$article = $this->model->getArticle($params);
         $criteria = array(
             'alias'  => $alias,

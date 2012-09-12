@@ -79,7 +79,7 @@ class ArticleModel
         $article->setState(\LibraArticle\Entity\Article::STATE_PUBLISHED);
         $article->setUid($uid ?: uniqid());
         $article->setRev(0);
-        $article->setLocale($data['locale']);
+        if (isset($data['locale'])) $article->setLocale($data['locale']);
         $this->em->persist($article);
         $this->em->flush($article);
         return $article->getId();
@@ -99,7 +99,7 @@ class ArticleModel
             'metaDescription' => $data['metaDescription']
         ));
         $article->setRev($article->getRev() + 1);
-        $article->setLocale($data['locale']);
+        if (isset($data['locale'])) $article->setLocale($data['locale']);
         $this->em->persist($article);
         $this->em->flush($article);
         return $article;

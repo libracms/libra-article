@@ -14,9 +14,11 @@
     echo $this->form()->openTag($form);
     echo $this->formInput($form->get('id'));
     echo $this->formElementErrors($form->get('id'));
-    echo $this->formLabel($form->get('locale'));
-    echo $this->formSelect($form->get('locale'));
-    echo $this->formElementErrors($form->get('locale'));
+    if (class_exists('\LibraLocale\Module')) {
+        echo $this->formLabel($form->get('locale'));
+        echo $this->formSelect($form->get('locale'));
+        echo $this->formElementErrors($form->get('locale'));
+    }
     echo $this->formLabel($form->get('heading'));
     echo $this->formInput($form->get('heading'));
     echo $this->formElementErrors($form->get('heading'));

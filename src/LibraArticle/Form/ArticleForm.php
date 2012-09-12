@@ -10,6 +10,7 @@ namespace LibraArticle\Form;
 
 use Zend\Form\Form;
 use Zend\Form\Element;
+use LibraLocale\Module as LocaleModule;
 
 
 /**
@@ -29,16 +30,16 @@ class ArticleForm extends Form
                 'type' => 'hidden',
             ),
         ));
-        $locale = new Element\Select('locale', array(
-            'label' => 'Locale: *',
-            'value_options' => array(
-                '' => 'All',
-                'en_GB' => 'en_GB',
-                'ru_RU' => 'ru_RU',
-            ),
-        ));
-        $locale->setAttribute('class', 'span2');
-        $this->add($locale);
+        if (class_exists('LibraLocale\Module')) {
+            $locales = array_combine(LocaleModule::getLocales(), LocaleModule::getLocales());
+            $locales = array_merge(array('' => 'All'), $locales);
+            $locale = new Element\Select('locale', array(
+                'label' => 'Locale: *',
+                'value_options' => $locales,
+            ));
+            $locale->setAttribute('class', 'span2');
+            $this->add($locale);
+        }
         $this->add(array(
             'name' => 'heading',
             'options' => array(
