@@ -19,8 +19,8 @@ use Zend\Form\Exception;
  */
 class FormCkeditor extends FormTextarea
 {
-    public $basePath        = '/vendor/ckeditor/';
-    public $basePathFinder  = '/vendor/ckfinder/';
+    public $basePath        = '/vendor/libra/ckeditor-assets/';
+    public $basePathFinder  = '/vendor/libra/ckfinder-assets/';
 
     /**
      * Render a form <textarea> element from the provided $element
@@ -38,7 +38,7 @@ class FormCkeditor extends FormTextarea
             ));
         }
 
-        if (!class_exists('CKEditor')) {
+        if (!class_exists('CKEditor') || !file_exists('public' . $this->basePath)) {
             return parent::render($element);
         }
         

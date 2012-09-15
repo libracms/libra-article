@@ -35,7 +35,9 @@
     },
 
     "suggest": {
-        "libra/libra-locale": "Adds locale depending articles"
+        "libra/ckeditor-assets": "Add ckeditor for visual editing articles",
+        "libra/ckfinder-assets": "Add ckfinder for visual uploading images",
+        "libra/libra-locale":    "Adds locale depending articles"
     }
 
 }
