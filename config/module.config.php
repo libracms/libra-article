@@ -7,19 +7,29 @@ return array(
                 'priority' => -100,
                 'options' => array(
                     'route' => '[/:alias]',
-                    'locale_aware' => true,
+                    'locale_aware' => false,
                     'constraints' => array(
                         'alias'      => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'locale'     => '[a-zA-Z][a-zA-Z_-]{1,9}',
                     ),
                     'defaults' => array(
                         //'__NAMESPACE__' => 'libra-article',
                         'module'     => 'libra-article',
                         'controller' => 'article',
                         'action'     => 'view',
-                        'alias'      => 'homepage',
+                        'alias'      => 'home',
                     ),
                 )
+            ),
+            'home' => array(
+                'options' => array(
+                    'locale_aware' => false,
+                    'defaults' => array(
+                        'module'     => 'libra-article',
+                        'controller' => 'article',
+                        'action'     => 'view',
+                        'alias'      => 'home',
+                    ),
+                ),
             ),
             'admin' => array(
                 'child_routes' => array(
