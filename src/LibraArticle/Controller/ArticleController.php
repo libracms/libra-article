@@ -4,6 +4,7 @@ namespace LibraArticle\Controller;
 
 use Zend\View\Model\ViewModel;
 use LibraArticle\Mapper\ArticleDoctrineMapper;
+use tidy;
 
 class ArticleController extends AbstractArticleController
 {
@@ -32,6 +33,22 @@ class ArticleController extends AbstractArticleController
             if (!$article) {
                 return $this->notFoundAction();
             }
+        }
+
+        /**
+         * tidies the article content
+         */
+        if (class_exists('tidy')) {
+            $content = $article->getContent();
+            $tidy = new tidy();
+            $cleanContent = $tidy->repairString($content, array(
+                'indent'         => true,
+                'indent-spaces'  => 4,
+                'wrap'           => 120,
+                'show-body-only' => true,
+            ), 'utf8');
+
+            $article->setContent($cleanContent);
         }
 
         $view = new ViewModel(array(

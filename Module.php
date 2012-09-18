@@ -52,7 +52,7 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
 
     public function setOptions(ModuleEvent $e)
     {
-        $config = $e->getConfigListener()->getMergedConfig();
+        $config = $e->getConfigListener()->getMergedConfig(false);
         static::$options = $config['libra_article'];
     }
 

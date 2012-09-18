@@ -155,4 +155,13 @@ return array(
         ),
     ),
 
+    //defaults
+    'libra_article' => array(
+        'tidy_config' => array(
+                'indent'         => true,
+                'indent-spaces'  => 4,
+                'wrap'           => 120,
+                'show-body-only' => true,
+        ),
+    ),
 );

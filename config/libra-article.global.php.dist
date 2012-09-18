@@ -8,6 +8,12 @@ $config = array(
      * To have any effect you should have enabled LibraLocale module
      */
     'consider_locale'  => false,
+    'tidy_config' => array(
+            'indent'         => true,
+            'indent-spaces'  => 4,
+            'wrap'           => 120,
+            'show-body-only' => true,
+    ),
 );
 
 return array(
