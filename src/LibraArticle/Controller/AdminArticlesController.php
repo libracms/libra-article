@@ -15,8 +15,8 @@ class AdminArticlesController extends AbstractArticleController
     {
         $qb = $this->getRepository()->createQueryBuilder('a');
         $qb->select('a.uid')
-           ->where('a.state = :state')
-           ->setParameter('state' , 'published')
+           //->where('a.state = :state')
+           //->setParameter('state' , 'published')
            ->addGroupBy('a.uid')
            ->orderBy('a.ordering', 'ASC');
         $uids = $qb->getQuery()->getArrayResult();
