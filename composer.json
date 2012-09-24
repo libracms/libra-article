@@ -12,9 +12,10 @@
     ],
 
     "require": {
-        "php":              ">=5.3.3",
-        "libra/libra":      "dev-default",
-        "libra/libra-app":  "dev-default"
+        "php":                              ">=5.3.3",
+        "libra/libra":                      "dev-default",
+        "libra/libra-module-manager":       "dev-default",
+        "libra/libra-app":                  "dev-default"
     },
 
     "require-dev": {

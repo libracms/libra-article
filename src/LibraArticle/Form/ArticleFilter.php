@@ -8,6 +8,7 @@
 namespace LibraArticle\Form;
 
 use Zend\InputFilter\InputFilter;
+use LibraModuleManager\Module as LibraModuleManagerModule;
 
 /**
  * Description of ArticleFilter
@@ -33,7 +34,7 @@ class ArticleFilter extends InputFilter
                 ),
             ),
         ));
-        if (class_exists('LibraLocale\Module')) {
+        if (LibraModuleManagerModule::isModulePresent('LibraLocale')) {
             $this->add(array(
                 'name'        => 'locale',
                 'required'    => true,

@@ -11,6 +11,7 @@ namespace LibraArticle\Form;
 use Zend\Form\Form;
 use Zend\Form\Element;
 use LibraLocale\Module as LocaleModule;
+use LibraModuleManager\Module as LibraModuleManagerModule;
 
 
 /**
@@ -30,7 +31,7 @@ class ArticleForm extends Form
                 'type' => 'hidden',
             ),
         ));
-        if (class_exists('LibraLocale\Module')) {
+        if (LibraModuleManagerModule::isModulePresent('LibraLocale')) {
             $locales = array_combine(LocaleModule::getLocales(), LocaleModule::getLocales());
             $locales = array_merge(array('' => 'All'), $locales);
             $locale = new Element\Select('locale', array(
