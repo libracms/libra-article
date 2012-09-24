@@ -5,6 +5,7 @@ namespace LibraArticle\Controller;
 use Zend\View\Model\ViewModel;
 use LibraArticle\Mapper\ArticleDoctrineMapper;
 use tidy;
+use LibraArticle\Entity\Article;
 
 class ArticleController extends AbstractArticleController
 {
@@ -23,6 +24,7 @@ class ArticleController extends AbstractArticleController
         $criteria = array(
             'alias'  => $alias,
             'locale' => $locale,
+            'state'  => Article::STATE_PUBLISHED,
         );
         $article = $this->getRepository()->findOneBy($criteria);
 
