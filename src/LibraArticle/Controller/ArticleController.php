@@ -16,7 +16,7 @@ class ArticleController extends AbstractArticleController
      * Display the article
      * @return \Zend\View\Model\ViewModel
      */
-    public function viewAction()
+    public function displayAction()
     {
         $alias  = $this->params('alias');
         $locale = $this->params('locale', '');

@@ -15,7 +15,7 @@ return array(
                         //'__NAMESPACE__' => 'libra-article',
                         'module'     => 'libra-article',
                         'controller' => 'article',
-                        'action'     => 'view',
+                        'action'     => 'display',
                         'alias'      => 'home',
                     ),
                 )
@@ -26,7 +26,7 @@ return array(
                     'defaults' => array(
                         'module'     => 'libra-article',
                         'controller' => 'article',
-                        'action'     => 'view',
+                        'action'     => 'display',
                         'alias'      => 'home',
                     ),
                 ),
