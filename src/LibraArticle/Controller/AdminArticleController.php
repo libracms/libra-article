@@ -33,11 +33,17 @@ class AdminArticleController extends AbstractArticleController
             $form->setData($this->params()->fromPost());
             if ($form->isValid()) {
                 try {
+                    $data = $form->getData();
+                    $this->getEventManager()->trigger('save.pre', $this, array('data' => &$data));
                     if ($id === 0) {
-                        $id = $this->getModel()->createArticleFromForm($form->getData(), $uid);
+                        $id = $this->getModel()->createArticleFromForm($data, $uid);
+                        $savedArticle = $this->getRepository()->find($id);
+                        $this->getEventManager()->trigger('create.post', $this, array('article' => $savedArticle));
                     } else {
-                        $savedArticle = $this->getModel()->updateArticle($id, $form->getData());
+                        $savedArticle = $this->getModel()->updateArticle($id, $data);
+                        $this->getEventManager()->trigger('update.post', $this, array('article' => $savedArticle));
                     }
+                    $this->getEventManager()->trigger('save.post', $this, array('article' => $savedArticle));
                     $this->getResponse()->setStatusCode(201);
                     $this->flashMessenger('libra-article-form')->addMessage('All OK');
                     return $this->redirect()->toRoute('admin/libra-article/article', array('id' => $id));
@@ -62,15 +68,17 @@ class AdminArticleController extends AbstractArticleController
                 $data['metaDescription'] = $article->getParam('metaDescription');
                 $data['content'] = $article->getContent();
                 $data['locale'] = $article->getLocale();
+
+                $this->getEventManager()->trigger('get', $this, array('data' => &$data));
                 $form->setData($data);
             }
         }
 
         return new ViewModel(array(
-            'form' => $form,
+            'form'    => $form,
             'article' => $article,
             'id'      => $id,
-            'uid'      => $uid,
+            'uid'     => $uid,
             'formErrorMessages' => $this->flashMessenger('libra-article-form'),
         ));
     }
@@ -92,4 +100,5 @@ class AdminArticleController extends AbstractArticleController
 
         return parent::dispatch($request, $response);
     }
+
 }
