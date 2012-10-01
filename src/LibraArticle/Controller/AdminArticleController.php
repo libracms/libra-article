@@ -10,17 +10,6 @@ class AdminArticleController extends AbstractArticleController
 {
     protected $class = 'Article';
 
-    public function listAction()
-    {
-        $params = $this->getEvent()->getRouteMatch()->getParams();
-        $articles = $this->getRepository()->findAll();
-
-        return new ViewModel(array(
-            'articles' => $articles,
-        ));
-    }
-
-
     public function editAction()
     {
         $id = (int) $this->params('id', 0);

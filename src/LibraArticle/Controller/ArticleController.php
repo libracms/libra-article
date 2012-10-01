@@ -37,6 +37,8 @@ class ArticleController extends AbstractArticleController
             }
         }
 
+        $this->getEventManager()->trigger('view', $this, array('article' => $article));
+
         /**
          * tidies the article content
          */
