@@ -1,20 +1,26 @@
 <div class="row-fluid" id="articles-container">
   <div class="span12">
-      <div class="pull-right text-info"><?php echo $this->translate(sprintf('Revision: #%d', $article ? $article->getRev() : 0)) ?></div>
       <?php 
       if (!empty($formOkMessages)) {
         foreach ($formOkMessages as $message) { ?>
-      <p class="text-info"><?php echo $this->escapeHtml($message) ?></p>
+      <div class="alert alert-success">
+        <button data-dismiss="alert" class="close" type="button">×</button>
+        <?php echo $this->escapeHtml($message) ?>
+      </div>
       <?php
         }
       }?>
       <?php
       if (!empty($formErrorMessages)) {
         foreach ($formErrorMessages as $message) { ?>
-      <p class="text-error"><?php echo $this->escapeHtml($message) ?></p>
+      <div class="alert alert-error">
+        <button data-dismiss="alert" class="close" type="button">×</button>
+        <?php echo $this->escapeHtml($message) ?>
+      </div>
       <?php
         }
       }?>
+      <div class="pull-right text-info"><?php echo $this->translate(sprintf('Revision: #%d', $article ? $article->getRev() : 0)) ?></div>
 <?php
     $form->prepare();
     $form->setAttribute('action', $this->url('admin/libra-article/article/query', array('id' => $id, 'uid' => $uid, 'locale' => null)));
