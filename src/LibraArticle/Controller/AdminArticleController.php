@@ -34,14 +34,15 @@ class AdminArticleController extends AbstractArticleController
                     }
                     $this->getEventManager()->trigger('save.post', $this, array('article' => $savedArticle));
                     $this->getResponse()->setStatusCode(201);
-                    $this->flashMessenger('libra-article-form')->addMessage('All OK');
+                    $this->flashMessenger()->setNamespace('libra-article-form-ok')->addMessage('All OK');
                     return $this->redirect()->toRoute('admin/libra-article/article', array('id' => $id));
                 } catch (\Doctrine\DBAL\DBALException $exc) {
-                    $this->flashMessenger('libra-article-form')->addMessage('DB error. May be duplicate entry. ' . $exc->getMessage());
+                    $this->flashMessenger()->setNamespace('libra-article-form-err')->addMessage('DB error. May be duplicate entry. ' . $exc->getMessage());
                     $article = $this->getRepository()->find($id);
                 }
             } else {
                 $article = $this->getRepository()->find($id);
+                $this->flashMessenger()->setNamespace('libra-article-form-err')->addMessage('Article wasn\'t saved');
             }
         } elseif ($this->getRequest()->isGet()) {
             /**
@@ -68,7 +69,8 @@ class AdminArticleController extends AbstractArticleController
             'article' => $article,
             'id'      => $id,
             'uid'     => $uid,
-            'formErrorMessages' => $this->flashMessenger('libra-article-form'),
+            'formOkMessages' => $this->flashMessenger()->setNamespace('libra-article-form-ok')->getMessages(),
+            'formErrorMessages' => $this->flashMessenger()->setNamespace('libra-article-form-err')->getCurrentMessages(),
         ));
     }
 
