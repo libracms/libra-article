@@ -34,7 +34,7 @@ class AdminArticleController extends AbstractArticleController
                     }
                     $this->getEventManager()->trigger('save.post', $this, array('article' => $savedArticle));
                     $this->getResponse()->setStatusCode(201);
-                    $this->flashMessenger()->setNamespace('libra-article-form-ok')->addMessage('All OK');
+                    $this->flashMessenger()->setNamespace('libra-article-form-ok')->addMessage('Article is saved');
                     return $this->redirect()->toRoute('admin/libra-article/article', array('id' => $id));
                 } catch (\Doctrine\DBAL\DBALException $exc) {
                     $this->flashMessenger()->setNamespace('libra-article-form-err')->addMessage('DB error. May be duplicate entry. ' . $exc->getMessage());
