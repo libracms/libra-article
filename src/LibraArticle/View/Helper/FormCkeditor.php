@@ -38,15 +38,17 @@ class FormCkeditor extends FormTextarea
             ));
         }
 
+        $layoutBasePath = $this->getView()->basePath();  //@TODO: need fix to 1 use
+
         if (!class_exists('CKEditor') || !file_exists('public' . $this->basePath)) {
             return parent::render($element);
         }
         
         $content = (string) $element->getValue();
-        $ckeditor = new \CKEditor($this->basePath);
+        $ckeditor = new \CKEditor($layoutBasePath . $this->basePath);
         if (class_exists('CKFinder')) {
             $_SESSION['IsAuthorized'] = true;
-            \CKFinder::SetupCKEditor($ckeditor, $this->basePathFinder);
+            \CKFinder::SetupCKEditor($ckeditor, $layoutBasePath . $this->basePathFinder);
         }
         ob_start();
         $ckeditor->editor($name, $content);
