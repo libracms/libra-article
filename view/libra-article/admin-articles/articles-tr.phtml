@@ -19,7 +19,12 @@ $col->id = '';
     $col->ordering      .= $this->partial('libra-article/admin-articles/articles-td-ordering', $article);
     $col->id            .= $this->partial('libra-article/admin-articles/articles-td-id', $article);
   }
-  $url = $this->url('admin/libra-article/article/query', array('uid' => $article->getUid(), 'locale' => null));
+  $url = $this->url('admin/libra-article/article', array(), array(
+      'query' => array(
+          'uid' => $article->getUid(),
+          'locale' => null
+      )
+  ));
   ?>
   <td>
     <ul class="unstyled">

@@ -31,6 +31,7 @@ return array(
                     ),
                 ),
             ),
+            /*** admin route */
             'admin' => array(
                 'child_routes' => array(
                     'libra-article' => array(
@@ -80,11 +81,6 @@ return array(
                                     ),
                                 ),
                                 'may_terminate' => true,
-                                'child_routes' => array(
-                                    'query' => array(
-                                        'type' => 'Query',
-                                    ),
-                                ),
                             ),
                             'articles' => array(
                                 'type' => 'Segment',
@@ -115,16 +111,12 @@ return array(
                                     ),
                                 ),
                                 'may_terminate' => true,
-                                'child_routes' => array(
-                                    'query' => array(
-                                        'type' => 'Query',
-                                    ),
-                                ),
                             ),
                         ),
                     ),
                 ),
             ),
+            /* admin route ***/
         ),
     ),
     'controllers' => array(

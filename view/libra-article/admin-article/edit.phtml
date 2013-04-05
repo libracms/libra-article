@@ -23,7 +23,14 @@
       <div class="pull-right text-info"><?php echo $this->translate(sprintf('Revision: #%d', $article ? $article->getRev() : 0)) ?></div>
 <?php
     $form->prepare();
-    $form->setAttribute('action', $this->url('admin/libra-article/article/query', array('id' => $id, 'uid' => $uid, 'locale' => null)));
+    $form->setAttribute('action', $this->url('admin/libra-article/article', array(
+        'id' => $id,
+    ), array(
+        'query' => array(
+            'uid' => $uid,
+            'locale' => null
+        )
+    )));
     echo $this->form()->openTag($form);
     echo $this->formInput($form->get('id'));
     echo $this->formElementErrors($form->get('id'));
