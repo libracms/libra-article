@@ -25,9 +25,7 @@
     "autoload": {
         "psr-0": {"LibraArticle": "src"},
         "classmap": [
-            "Module.php",
-            "src/ckeditor_php5.php",
-            "src/ckfinder_php5.php"
+            "Module.php"
         ]
     },
 
