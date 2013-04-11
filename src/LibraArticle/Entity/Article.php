@@ -252,6 +252,34 @@ class Article extends AbstractEntityParams
         return $this->content;
     }
 
+    /**
+     * Return brief part of content until <!---READ MORE--->
+     * @return string html
+     */
+    public function getBriefContent()
+    {
+        $content = $this->content;
+        if (empty($content)) return $content;
+
+        $divider = '<!---READ'; // <!---READ MORE--->
+        $brief = strstr($content, $divider, true);
+        if ($brief === false) {
+            $brief = substr($content, 0, 250);
+
+            /** tidies the brief part */
+            if (class_exists('tidy')) {
+                $tidy = new \tidy();
+                $brief = $tidy->repairString($brief, array(
+                    'indent'         => true,
+                    'indent-spaces'  => 4,
+                    'wrap'           => 120,
+                    'show-body-only' => true,
+                ), 'utf8');
+            }
+        }
+        return $brief;
+    }
+
     public function setState($state)
     {
         if (!in_array($state, $this->states)) {
