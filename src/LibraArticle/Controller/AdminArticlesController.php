@@ -2,29 +2,17 @@
 
 namespace LibraArticle\Controller;
 
-use Zend\View\Model\ViewModel;
+use Doctrine\ORM\ORMInvalidArgumentException;
 use Zend\Stdlib\RequestInterface as Request;
 use Zend\Stdlib\ResponseInterface as Response;
-use Doctrine\ORM\ORMInvalidArgumentException;
+use Zend\View\Model\ViewModel;
 
 class AdminArticlesController extends AbstractArticleController
 {
-    protected $class = 'Article';
 
     public function viewAction()
     {
-        $qb = $this->getRepository()->createQueryBuilder('a');
-        $qb->select('a.uid')
-           //->where('a.state = :state')
-           //->setParameter('state' , 'published')
-           ->addGroupBy('a.uid')
-           ->orderBy('a.ordering', 'ASC');
-        $uids = $qb->getQuery()->getArrayResult();
-        $groups = array();
-        foreach ($uids as $uid) {
-            $groups[$uid['uid']] = $this->getRepository()->findByUid($uid['uid'], array('locale' => 'ASC'));
-        }
-
+        $groups = $this->getRepository()->findAllAsGroups();
         return new ViewModel(array(
             'groups'   => $groups,
             'messages' => $this->flashMessenger()->getMessages(),
@@ -86,11 +74,6 @@ class AdminArticlesController extends AbstractArticleController
     public function unpublishAction()
     {
         return $this->update('unpublish');
-    }
-
-    public function setClassName($className = 'Article')
-    {
-        $this->class = $className;
     }
 
     public function dispatch(Request $request, Response $response = null)

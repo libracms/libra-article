@@ -12,6 +12,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use LibraArticle\Form\ArticleForm;
 use Doctrine\ORM\EntityManager;
 use LibraArticle\Model\ArticleModel;
+use LibraArticle\Repository\ArticleRepository;
 
 /**
  * Description of AbstractArticleController
@@ -20,11 +21,7 @@ use LibraArticle\Model\ArticleModel;
  */
 abstract class AbstractArticleController extends AbstractActionController
 {
-    protected $class;
-    protected $formClass  = 'Article';
-    protected $modelClass = 'Article';
     protected $entityName = 'LibraArticle\Entity\Article';
-
     protected $form;
     protected $em;
     protected $model;
@@ -64,18 +61,12 @@ abstract class AbstractArticleController extends AbstractActionController
         return $this->em;
     }
 
+    /**
+     * @return ArticleRepository
+     */
     public function getRepository()
     {
         return $this->getEntityManager()->getRepository($this->entityName);
-    }
-
-    /**
-     * alias for getEntityManager
-     * @return EntityManager
-     */
-    public function getEm()
-    {
-        return $this->getEntityManager();
     }
 
     public function setModel($model)
@@ -96,7 +87,4 @@ abstract class AbstractArticleController extends AbstractActionController
         }
         return $this->model;
     }
-
-    abstract function setClassName($className);
-
 }

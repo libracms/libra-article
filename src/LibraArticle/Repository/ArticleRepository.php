@@ -3,8 +3,7 @@
 namespace LibraArticle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Mapping\ClassMetadata;
+use LibraArticle\Entity\Article;
 
 /**
  * Description of ArticleRepository
@@ -13,16 +12,41 @@ use Doctrine\ORM\Mapping\ClassMetadata;
  */
 class ArticleRepository extends EntityRepository
 {
-    public function non__construct(EntityManager $em, $class = 'LibraArticle\Entity\Article')
+    /**
+     * @param array $params
+     * @return Article
+     */
+    public function findByAliasAndLocale($alias, $locale, $oprions = array())
     {
-        $class = 'LibraArticle\Entity\Article'; //@todo need fix
-        if (is_string($class)) {
-            $class = $em->getClassMetadata($class);
+        $criteria = array(
+            'alias'  => $alias,
+            'locale' => $locale,
+            'state'  => isset($oprions['state']) ? $oprions['state'] : Article::STATE_PUBLISHED,
+        );
+        $article = $this->findOneBy($criteria);
+
+        if (!$article) {
+            //look for all '' locales
+            $criteria['locale'] = '';
+            $article = $this->findOneBy($criteria);
         }
-        if (!$class instanceof ClassMetadata) {
-            throw new \InvalidArgumentException("Is not instance of ClassMetadata");
-        }
-        return parent::__construct($em, $class);
+        return $article;
     }
 
+    /**
+     * @param array|null of Articles $options
+     */
+    public function findAllAsGroups()
+    {
+        $qb = $this->createQueryBuilder('a');
+        $qb->select('a.uid')
+           ->addGroupBy('a.uid')
+           ->orderBy('a.ordering', 'ASC');
+        $uids = $qb->getQuery()->getArrayResult();
+        $groups = array();
+        foreach ($uids as $uid) {
+            $groups[$uid['uid']] = $this->findBy(array('uid' => $uid['uid']), array('locale' => 'ASC'));
+        }
+        return $groups;
+    }
 }

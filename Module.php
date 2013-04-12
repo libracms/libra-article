@@ -35,6 +35,20 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
         );
     }
 
+    public function getServiceConfig()
+    {
+        return array(
+            'factories' => array(
+                'LibraArticle\ServiceArticle' => function($sl) {
+                    $em = $sl->get('Doctrine\ORM\EntityManager');
+                    $instance = new Service\Article();
+                    $instance->setEntityManager($em);
+                    return $instance;
+                },
+            ),
+        );
+    }
+
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';

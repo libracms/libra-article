@@ -8,7 +8,6 @@ use Zend\Stdlib\ResponseInterface as Response;
 
 class AdminArticleController extends AbstractArticleController
 {
-    protected $class = 'Article';
 
     public function editAction()
     {
@@ -72,12 +71,6 @@ class AdminArticleController extends AbstractArticleController
             'formOkMessages' => $this->flashMessenger()->setNamespace('libra-article-form-ok')->getMessages(),
             'formErrorMessages' => $this->flashMessenger()->setNamespace('libra-article-form-err')->getCurrentMessages(),
         ));
-    }
-
-
-    public function setClassName($className = 'Article')
-    {
-        $this->class = $className;
     }
 
     public function dispatch(Request $request, Response $response = null)

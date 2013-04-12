@@ -2,9 +2,10 @@
 
 namespace LibraArticle\Model;
 
+use Doctrine\ORM\EntityManager;
 use LibraArticle\Repository\ArticleRepository;
 use LibraArticle\Entity\Article;
-use Doctrine\ORM\EntityManager;
+Use \tidy;
 
 /**
  * Description of ArticleModel
@@ -25,9 +26,8 @@ class ArticleModel
      */
     protected $repository;
 
-    public function __construct(EntityManager $em, $entityName = false)
+    public function __construct(EntityManager $em, $entityName = 'LibraArticle\Entity\Article')
     {
-        $entityName = 'LibraArticle\Entity\Article';
         $this->repository = $em->getRepository($entityName);
         $this->em = $em;
     }
@@ -41,20 +41,6 @@ class ArticleModel
     public function getRepository()
     {
         return $this->repository;
-    }
-
-    /**
-     *
-     * @param array $params
-     * @return Article
-     */
-    public function getArticle($params)
-    {
-        $alias = $params['alias'];
-        $repository = $this->repository;
-        //$article = $repository->findOneBy(array('alias' => $alias));
-        $article = $repository->findOneByAlias($alias);
-        return $article;
     }
 
     public function createArticleFromForm($data, $uid = null)
@@ -125,5 +111,26 @@ class ArticleModel
             );
         }
         return $urlset;
+    }
+
+    /**
+     * tidies the article content
+     */
+    public function tidifyContent(Article $article, $options = array(
+            'indent'         => true,
+            'indent-spaces'  => 4,
+            'wrap'           => 120,
+            'show-body-only' => true,
+        ), $encoding = 'utf8')
+    {
+        if (!class_exists('tidy')) {
+            return false;
+        }
+        $content = $article->getContent();
+        $tidy = new tidy();
+        $cleanContent = $tidy->repairString($content, $options, $encoding);
+
+        $article->setContent($cleanContent);
+        return true;
     }
 }
