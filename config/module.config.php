@@ -4,7 +4,7 @@ return array(
         'routes' => array(
             'libra-article' => array(
                 'type' => 'Segment',
-                'priority' => -1100,
+                'priority' => -100,
                 'options' => array(
                     'route' => '[/:alias]',
                     'locale_aware' => false,
