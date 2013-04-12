@@ -2,9 +2,10 @@
 
 namespace LibraArticle\Entity;
 
+use DateTime;
+use DateTimeZone;
 use Doctrine\ORM\Mapping as ORM;
 use Libra\Entity\AbstractEntityParams;
-use DateTime;
 
 /**
  * Description of Article
@@ -171,6 +172,7 @@ class Article extends AbstractEntityParams
     public function setCreated($datetime)
     {
         if ($datetime instanceof DateTime) {
+            $this->created = $datetime;
         } else {
             $this->created = new DateTime($datetime);
             //$this->created =  new Date($created . ' UTC');
@@ -181,12 +183,12 @@ class Article extends AbstractEntityParams
 
     public function getCreated()
     {
-        return $this->created->setTimezone(date_default_timezone_get());
+        return $this->created->setTimezone(new DateTimeZone(date_default_timezone_get()));
     }
 
     public function getCreatedUtc()
     {
-        return $this->created->setTimezone('UTC');
+        return $this->created->setTimezone(new DateTimeZone('UTC'));
     }
     
     public function setCreatedBy($createdBy)
@@ -203,6 +205,7 @@ class Article extends AbstractEntityParams
     public function setModified($datetime)
     {
         if ($datetime instanceof DateTime) {
+            $this->modified = $datetime;
         } else {
             $this->modified = new DateTime($datetime);
         }
@@ -211,12 +214,13 @@ class Article extends AbstractEntityParams
 
     public function getModified()
     {
-        return $this->modified->setTimezone(date_default_timezone_get());
+        return $this->modified->setTimezone(new DateTimeZone(date_default_timezone_get()));
     }
 
+    /** @return \DateTime */
     public function getModifiedUtc()
     {
-        return $this->modified->setTimezone('UTC');
+        return $this->modified->setTimezone(new DateTimeZone('UTC'));
     }
 
     public function setModifiedBy($modifiedBy)

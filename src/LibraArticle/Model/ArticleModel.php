@@ -105,4 +105,25 @@ class ArticleModel
         return $article;
     }
 
+    public function getSitemap(\Zend\View\Helper\Url $urlHelper)
+    {
+        $criteria = array(
+            'state'  => Article::STATE_PUBLISHED,
+        );
+        $orderBy = array('ordering' => 'ASC');
+        $articles = $this->getRepository()->findBy($criteria, $orderBy);
+        $urlset = array();
+        foreach ($articles as $article) {
+            $urlset[] = array(
+//            'loc'        => $urlHelper('libra-article', array(
+//                              'alias' => $article->getAlias(),
+//                              'locale' => $article->getLocale())), //don't work properly
+            'loc'        => $urlHelper('libra-article', array('alias' => $article->getAlias())),
+            'lastmod'    => $article->getModified()->format(\DateTime::ATOM),
+            'changefreq' => null,
+            'priority'   => null,
+            );
+        }
+        return $urlset;
+    }
 }

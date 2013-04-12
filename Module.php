@@ -17,6 +17,15 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
         $moduleManager->getEventManager()->attach('loadModules.post', array($this, 'setOptions'));
     }
 
+    public function getSitemapConfig($sl)
+    {
+        $em = $sl->get('Doctrine\ORM\EntityManager');
+        $model = new Model\ArticleModel($em);
+        $urlHelper = $sl->get('ViewRenderer')->plugin('url');
+        $urlsets = $model->getSitemap($urlHelper);
+        return $urlsets;
+    }
+
     public function getViewHelperConfig()
     {
         return array(
