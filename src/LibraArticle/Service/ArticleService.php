@@ -1,6 +1,6 @@
 <?php
 
-namespace LibraArticle\Model;
+namespace LibraArticle\Service;
 
 use Doctrine\ORM\EntityManager;
 use LibraArticle\Repository\ArticleRepository;
@@ -13,7 +13,7 @@ Use \tidy;
  *
  * @author duke
  */
-class ArticleModel
+class ArticleService
 {
 
     protected $entityName = 'LibraArticle\Entity\Article';
@@ -45,42 +45,27 @@ class ArticleModel
 
     public function createArticleFromForm($data, $uid = null)
     {
-        $hydrator = new \Zend\Stdlib\Hydrator\ClassMethods(true);
         $article = new Article();
-        $hydrator->hydrate($data, $article);
-
+        $article->setId($data['id']);
+        $article->setCreated(null);
+        $article->setHeading($data['heading']);
+        $article->setAlias($data['alias']);
         $article->setParams(array(
             'headTitle' => $data['headTitle'],
             'metaKeywords' => $data['metaKeywords'],
             'metaDescription' => $data['metaDescription']
         ));
+        $article->setContent($data['content']);
+        $article->setLocale('');
         $article->setUid(uniqid());
-
-//        $article->setParams(array(
-//            'headTitle' => $data['headTitle'],
-//            'metaKeywords' => $data['metaKeywords'],
-//            'metaDescription' => $data['metaDescription']
-//        ));
-//        $article->setId($data['id']);
-//        $article->setCreated(null);
-//        $article->setHeading($data['heading']);
-//        $article->setAlias($data['alias']);
-//        $article->setParams(array(
-//            'headTitle' => $data['headTitle'],
-//            'metaKeywords' => $data['metaKeywords'],
-//            'metaDescription' => $data['metaDescription']
-//        ));
-//        $article->setContent($data['content']);
-//        $article->setLocale('');
-//        $article->setUid(uniqid());
-//        $article->setCreatedBy(0);
-//        $article->setModified(null);
-//        $article->setModifiedBy(0);
-//        $article->setOrdering(0);
-//        $article->setState(\LibraArticle\Entity\Article::STATE_PUBLISHED);
-//        $article->setUid($uid ?: uniqid());
-//        $article->setRev(0);
-//        if (isset($data['locale'])) $article->setLocale($data['locale']);
+        $article->setCreatedBy(0);
+        $article->setModified(null);
+        $article->setModifiedBy(0);
+        $article->setOrdering(0);
+        $article->setState(\LibraArticle\Entity\Article::STATE_PUBLISHED);
+        $article->setUid($uid ?: uniqid());
+        $article->setRev(0);
+        if (isset($data['locale'])) $article->setLocale($data['locale']);
         $this->em->persist($article);
         $this->em->flush($article);
         return $article->getId();
