@@ -2,6 +2,7 @@
 
 namespace LibraArticleTest;
 
+use Zend\Mvc\Application;
 use Zend\Mvc\Service\ServiceManagerConfig;
 use Zend\ServiceManager\ServiceManager;
 
@@ -14,26 +15,20 @@ chdir(__DIR__);
 class Bootstrap
 {
     protected static $serviceManager;
-    public static $appRootPath = null;
+    protected static $appPath = null;
 
     public static function init()
     {
-        $zf2ModulePaths = array(dirname(dirname(__DIR__)));
-        if (($path = static::findParentPath('vendor'))) {
-            $zf2ModulePaths[] = $path;
-        }
-        if (($path = static::findParentPath('module')) !== $zf2ModulePaths[0]) {
-            $zf2ModulePaths[] = $path;
-        }
-
-        static::$appRootPath = dirname(static::findParentFilePath('init_autoloader.php'));
-
+        $appPath = static::getAppPath();
         static::initAutoloader();
 
         // use ModuleManager to load this module and it's dependencies
         $config = array(
             'module_listener_options' => array(
-                'module_paths' => $zf2ModulePaths,
+                'module_paths' => array(
+                    $appPath . '/module',
+                    $appPath . '/vendor',
+                ),
             ),
             'modules' => array(
                 'DoctrineModule',
@@ -47,11 +42,15 @@ class Bootstrap
             )
         );
 
-        chdir(static::$appRootPath);
-        //$config = static::$appRootPath . '/config/application.config.php';
-        $serviceManager = new ServiceManager(new ServiceManagerConfig());
+        chdir($appPath);
+        $config = include $appPath . '/config/application.config.php';
+        //$app = Application::init($config);
+        //static::$serviceManager = $app->getServiceManager();
+        $smConfig = isset($configuration['service_manager']) ? $configuration['service_manager'] : array();
+        $serviceManager = new ServiceManager(new ServiceManagerConfig($smConfig));
         $serviceManager->setService('ApplicationConfig', $config);
         $serviceManager->get('ModuleManager')->loadModules();
+        //$serviceManager->get('Application')->bootstrap();
         static::$serviceManager = $serviceManager;
     }
 
@@ -60,9 +59,19 @@ class Bootstrap
         return static::$serviceManager;
     }
 
+    public static function getAppPath()
+    {
+        if (static::$appPath === null) {
+            static::$appPath = dirname(static::findParentFilePath('init_autoloader.php'));
+        }
+        return static::$appPath;
+
+    }
+
     protected static function initAutoloader()
     {
-        $autoloaderPath = static::findParentFilePath('init_autoloader.php');
+        //$autoloaderPath = static::findParentFilePath('init_autoloader.php');
+        $autoloaderPath = static::getAppPath() . '/init_autoloader.php';
         $cwd = getcwd();
         chdir(dirname($autoloaderPath));
         require $autoloaderPath;

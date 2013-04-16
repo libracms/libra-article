@@ -14,7 +14,7 @@ class ArticleControllerTest extends AbstractHttpControllerTestCase
     public function setUp()
     {
         $this->setApplicationConfig(
-            include Bootstrap::$appRootPath . '/config/application.config.php'
+            include Bootstrap::getAppPath() . '/config/application.config.php'
         );
         parent::setUp();
     }
@@ -38,8 +38,8 @@ class ArticleControllerTest extends AbstractHttpControllerTestCase
         //$this->dispatch('libra-article', 'GET', array('alias' => 'home'));
         //$this->dispatch('http://libra-cms/robotx.txt');
         //$this->dispatch('/en/article/home');
-        //$this->dispatch('/en/home');
-        $this->dispatch('/home');
+        $this->dispatch('/en/home');
+        //$this->dispatch('/home');
         $this->assertModulesLoaded(array(
                 'DoctrineModule',
                 'DoctrineORMModule',
@@ -49,8 +49,6 @@ class ArticleControllerTest extends AbstractHttpControllerTestCase
                 'LibraArticle',
                 'LibraLocale',
         ));
-        $this->assertModuleName('LibraArticle');
-        return;
         $this->assertResponseStatusCode(200);
 
         $this->assertModuleName('LibraArticle');
