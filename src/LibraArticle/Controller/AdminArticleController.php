@@ -17,8 +17,13 @@ class AdminArticleController extends AbstractArticleController
         $filter = new \LibraArticle\Form\ArticleFilter;
         $form->setInputFilter($filter);
 
-        if ($this->getRequest()->isPost()) {
-            $form->setData($this->params()->fromPost());
+        $redirectUrl = $this->url()->fromRoute('admin/libra-article/article', array('action'=> 'edit', 'id' => $id));
+        $prg = $this->prg($redirectUrl, true);
+        if ($prg instanceof Response) {
+            return $prg;
+        } elseif ($prg !== false) {
+        //if ($this->getRequest()->isPost()) {
+            $form->setData($prg);
             if ($form->isValid()) {
                 try {
                     $data = $form->getData();
@@ -43,7 +48,9 @@ class AdminArticleController extends AbstractArticleController
                 $article = $this->getRepository()->find($id);
                 $this->flashMessenger()->setNamespace('libra-article-form-err')->addMessage('Article wasn\'t saved');
             }
-        } elseif ($this->getRequest()->isGet()) {
+
+        } elseif ($prg === false) {  //as usual first GET query
+        //} elseif ($this->getRequest()->isGet()) {
             /**
              * @var \LibraArticle\Entity\Article Description
              */
