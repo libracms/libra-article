@@ -62,7 +62,7 @@ class ArticleModel
 //            'metaDescription' => $data['metaDescription']
 //        ));
 //        $article->setId($data['id']);
-//        $article->setCreated(null);
+        $article->setCreated(null);
 //        $article->setHeading($data['heading']);
 //        $article->setAlias($data['alias']);
 //        $article->setParams(array(
@@ -72,14 +72,14 @@ class ArticleModel
 //        ));
 //        $article->setContent($data['content']);
 //        $article->setLocale('');
-//        $article->setUid(uniqid());
-//        $article->setCreatedBy(0);
-//        $article->setModified(null);
-//        $article->setModifiedBy(0);
-//        $article->setOrdering(0);
-//        $article->setState(\LibraArticle\Entity\Article::STATE_PUBLISHED);
-//        $article->setUid($uid ?: uniqid());
-//        $article->setRev(0);
+        $article->setUid(uniqid());
+        $article->setCreatedBy(0);
+        $article->setModified(null);
+        $article->setModifiedBy(0);
+        $article->setOrdering(0);
+        $article->setState(\LibraArticle\Entity\Article::STATE_PUBLISHED);
+        $article->setUid($uid ?: uniqid());
+        $article->setRev(0);
 //        if (isset($data['locale'])) $article->setLocale($data['locale']);
         $this->em->persist($article);
         $this->em->flush($article);
