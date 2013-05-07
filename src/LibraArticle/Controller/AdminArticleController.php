@@ -2,19 +2,50 @@
 
 namespace LibraArticle\Controller;
 
-use Zend\View\Model\ViewModel;
+use Doctrine\DBAL\DBALException;
+use LibraArticle\Entity\Article;
+use LibraArticle\Form\ArticleFilter;
 use Zend\Stdlib\RequestInterface as Request;
 use Zend\Stdlib\ResponseInterface as Response;
+use Zend\View\Model\ViewModel;
 
 class AdminArticleController extends AbstractArticleController
 {
+
+    /**
+     * 
+     * @param type $article
+     * @return Article | false
+     */
+    protected function getGooglePreviewHtml( $article)
+    {
+        if (!$article) return false;
+        //$siteHeadTitle = 'Site Head Title';
+        $siteHeadTitle = '';
+        $articleHeadTitle = $article->getParam('headTitle') ?: $article->getHeading();
+        $headTitle = $siteHeadTitle ? $articleHeadTitle . ' - ' . $siteHeadTitle : $articleHeadTitle;
+        $breadcrumb = $this->getServiceLocator()->get('viewRenderer')->plugin('serverUrl')->getHost() . '/';
+
+        $googlePreview = sprintf(
+            '
+                <h4 style="margin: 2px 0 2px 0;"><a target="_blank" href="%2$s">%1$s</a></h4>
+                <div style="color: green;">%3$s</div>
+                <div>%4$s</div>
+            ',
+            substr($headTitle, 0, 70),
+            $this->url()->fromRoute('libra-article', array('alias' => $article->getAlias())),
+            $breadcrumb,
+            substr($article->getParam('metaDescription'), 0, 170)
+        );
+        return $googlePreview;
+    }
 
     public function editAction()
     {
         $id = (int) $this->params('id', 0);
         $uid = $this->params()->fromQuery('uid', null);
         $form = $this->getForm();
-        $filter = new \LibraArticle\Form\ArticleFilter;
+        $filter = new ArticleFilter;
         $form->setInputFilter($filter);
 
         $redirectUrl = $this->url()->fromRoute('admin/libra-article/article', array('action'=> 'edit', 'id' => $id));
@@ -40,7 +71,7 @@ class AdminArticleController extends AbstractArticleController
                     $this->getResponse()->setStatusCode(201);
                     $this->flashMessenger()->setNamespace('libra-article-form-ok')->addMessage('Article is saved');
                     return $this->redirect()->toRoute('admin/libra-article/article', array('id' => $id));
-                } catch (\Doctrine\DBAL\DBALException $exc) {
+                } catch (DBALException $exc) {
                     $this->flashMessenger()->setNamespace('libra-article-form-err')->addMessage('DB error. May be duplicate entry. ' . $exc->getMessage());
                     $article = $this->getRepository()->find($id);
                 }
@@ -52,7 +83,7 @@ class AdminArticleController extends AbstractArticleController
         } elseif ($prg === false) {  //as usual first GET query
         //} elseif ($this->getRequest()->isGet()) {
             /**
-             * @var \LibraArticle\Entity\Article Description
+             * @var Article Description
              */
             $article = $this->getRepository()->find($id);
             if ($article) {
@@ -75,6 +106,7 @@ class AdminArticleController extends AbstractArticleController
             'article' => $article,
             'id'      => $id,
             'uid'     => $uid,
+            'googlePreview' => $this->getGooglePreviewHtml($article),
             'formOkMessages' => $this->flashMessenger()->setNamespace('libra-article-form-ok')->getMessages(),
             'formErrorMessages' => $this->flashMessenger()->setNamespace('libra-article-form-err')->getCurrentMessages(),
         ));

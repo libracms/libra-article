@@ -48,12 +48,21 @@
     echo $this->formLabel($form->get('headTitle'));
     echo $this->formInput($form->get('headTitle'));
     echo $this->formElementErrors($form->get('headTitle'));
+    echo '<div id="metaKeywordsLength" class="pull-right"></div>';
     echo $this->formLabel($form->get('metaKeywords'));
     echo $this->formInput($form->get('metaKeywords'));
     echo $this->formElementErrors($form->get('metaKeywords'));
+    echo '<div id="metaDescriptionLength" class="pull-right"></div>';
     echo $this->formLabel($form->get('metaDescription'));
     echo $this->formInput($form->get('metaDescription'));
     echo $this->formElementErrors($form->get('metaDescription'));
+    $googlePreview = $this->googlePreview ?: $this->translate('Preview will be available after save article');
+    echo <<<GP
+    <div id="googlePreview">
+        <span>Preview:</span>
+        <div>$googlePreview</div>
+    </div>
+GP;
     echo $this->formLabel($form->get('content'));
     echo $this->formCkeditor($form->get('content'));
     echo $this->formElementErrors($form->get('content'));
@@ -65,3 +74,25 @@
 <?php echo $this->form()->closeTag() ?>
   </div><!--/span-->
 </div><!--/row-->
+<style>
+    #googlePreview {
+        height: 100px;
+        margin: 2px 0 10px;
+    }
+
+    #googlePreview > div {
+        margin: 2px 0 10px 20px;
+        width: 512px;
+        border: solid 0px gray;
+    }
+</style>
+<script>
+jQuery(function($) {
+    $("#articleForm input[name=metaKeywords]").keyup(function() {
+        $("#metaKeywordsLength").text($(this).val().length);
+    }).keyup();
+    $("#articleForm input[name=metaDescription]").keyup(function() {
+        $("#metaDescriptionLength").text($(this).val().length);
+    }).keyup();
+});
+</script>
