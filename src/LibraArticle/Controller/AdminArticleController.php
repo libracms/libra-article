@@ -14,11 +14,13 @@ class AdminArticleController extends AbstractArticleController
 
     protected function highlightKeywords($keywords, $subject)
     {
-        $keywords = substr($keywords, 0, strpos($keywords, ','));
+        if (strpos($keywords, ',') !== false) {
+            $keywords = substr($keywords, 0, strpos($keywords, ','));
+        }
         $keywords = explode(' ', $keywords);
 
         foreach ($keywords as $keyword) {
-            $subject = str_ireplace($keyword, "<strong>$keyword</strong>", $subject);
+            $subject = preg_replace("/($keyword)/i", "<strong>$1</strong>", $subject);
         }
 
         return $subject;
@@ -53,16 +55,15 @@ class AdminArticleController extends AbstractArticleController
 
         $googlePreview = sprintf(
             '
-                <h4 style="margin: 2px 0 2px 0;"><a target="_blank" href="%2$s">%1$s</a></h4>
+                <div style="margin: 2px 0 0px 0;"><a target="_blank" href="%2$s">%1$s</a></div>
                 <div style="color: green;">%3$s</div>
                 <div>%4$s</div>
             ',
-            substr($headTitle, 0, 70),
+            $this->highlightKeywords($article->getParam('metaKeywords'), substr($headTitle, 0, 70)),
             $this->url()->fromRoute('libra-article', array('alias' => $article->getAlias())),
-            $breadcrumb,
-            substr($article->getParam('metaDescription'), 0, 170)
+            $this->highlightKeywords($article->getParam('metaKeywords'), $breadcrumb),
+            $this->highlightKeywords($article->getParam('metaKeywords'), substr($article->getParam('metaDescription'), 0, 170))
         );
-        $googlePreview = $this->highlightKeywords($article->getParam('metaKeywords'), $googlePreview);
 
         return $googlePreview;
     }
