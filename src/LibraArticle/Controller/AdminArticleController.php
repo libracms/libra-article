@@ -24,7 +24,20 @@ class AdminArticleController extends AbstractArticleController
         $siteHeadTitle = '';
         $articleHeadTitle = $article->getParam('headTitle') ?: $article->getHeading();
         $headTitle = $siteHeadTitle ? $articleHeadTitle . ' - ' . $siteHeadTitle : $articleHeadTitle;
-        $breadcrumb = $this->getServiceLocator()->get('viewRenderer')->plugin('serverUrl')->getHost() . '/';
+        $breadcrumb = $this->getServiceLocator()->get('viewRenderer')->plugin('serverUrl')->getHost();
+        $navContainer = $this->getServiceLocator()->get('navigation');
+        $page = $navContainer->findOneBy('label', $article->getHeading());
+        if ($page) {
+            $page->setActive ();
+            $brc = clone $this->getServiceLocator()->get('viewRenderer')->navigation()->breadcrumbs();
+            $breadcrumb .= ' > ' . $brc->render($navContainer);  //@todo: do partial render to remove anchors.
+        } else {
+            $path = $this->url()->fromRoute('libra-article', array(
+                'locale' => $article->getLocale(),
+                'alias' => $article->getAlias(),
+            ));
+            $breadcrumb .= $path;
+        }
 
         $googlePreview = sprintf(
             '
