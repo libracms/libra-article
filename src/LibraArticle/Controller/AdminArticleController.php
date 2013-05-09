@@ -12,6 +12,18 @@ use Zend\View\Model\ViewModel;
 class AdminArticleController extends AbstractArticleController
 {
 
+    protected function highlightKeywords($keywords, $subject)
+    {
+        $keywords = substr($keywords, 0, strpos($keywords, ','));
+        $keywords = explode(' ', $keywords);
+
+        foreach ($keywords as $keyword) {
+            $subject = str_ireplace($keyword, "<strong>$keyword</strong>", $subject);
+        }
+
+        return $subject;
+    }
+
     /**
      * 
      * @param type $article
@@ -50,6 +62,8 @@ class AdminArticleController extends AbstractArticleController
             $breadcrumb,
             substr($article->getParam('metaDescription'), 0, 170)
         );
+        $googlePreview = $this->highlightKeywords($article->getParam('metaKeywords'), $googlePreview);
+
         return $googlePreview;
     }
 
