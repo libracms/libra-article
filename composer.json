@@ -1,11 +1,9 @@
 {
     "name":         "libra/libra-article",
     "type":         "library",
-    "version":      "0.3.0",
     "description":  "Article module for Libra CMS",
     "keywords":     ["zf", "zf2", "zendframework", "cms", "libra"],
-    "homepage":     "http://www.libra-cms.ejoom.com",
-    "time":         "2012-05-16",
+    "homepage":     "http://www.ejoom.com/libra-cms/",
     "license":      "BSD-3-Clause",
     "authors": [
         {"name": "Vitalii Nagara", "email": "duke@ejoom.com", "role": "maintainer, developer", "homepage": ""}
@@ -13,9 +11,9 @@
 
     "require": {
         "php":                              ">=5.3.3",
-        "libra/libra":                      "dev-default",
-        "libra/libra-module-manager":       "dev-default",
-        "libra/libra-app":                  "dev-default"
+        "libra/libra":                      "dev-master",
+        "libra/libra-module-manager":       "dev-master",
+        "libra/libra-app":                  "dev-master"
     },
 
     "require-dev": {
@@ -23,7 +21,7 @@
     },
 
     "autoload": {
-        "psr-0": {"LibraArticle": "src"},
+        "psr-0": {"LibraArticle\\": "src/"},
         "classmap": [
             "Module.php"
         ]
