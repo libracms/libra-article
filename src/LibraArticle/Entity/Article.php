@@ -115,6 +115,12 @@ class Article extends AbstractEntityParams
         return $this;
     }
 
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     /**
      * Get id.
      *
@@ -315,8 +321,7 @@ class Article extends AbstractEntityParams
 
     public function toArray()
     {
-        $params = $this->params->toArray();
-        return array_merge(get_object_vars($this), array('params' => $params));
+        return get_object_vars($this);
     }
 
     public function serialize()
