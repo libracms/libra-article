@@ -94,9 +94,9 @@ class Article extends AbstractEntityParams
     protected $state;
     /**
      * @ORM\Column(type="integer")
-     * @var int latest revision
+     * @var int the latest revision
      */
-    protected $rev;
+    protected $revision;
     /**
      * @ORM\Column(type="text")
      * @var string
@@ -304,9 +304,9 @@ class Article extends AbstractEntityParams
         return $this->state;
     }
 
-    public function setRev($rev)
+    public function setRevision($revision)
     {
-        $this->rev = $rev;
+        $this->revision = $revision;
         return $this;
     }
 
@@ -314,9 +314,9 @@ class Article extends AbstractEntityParams
      *
      * @return int latest revision
      */
-    public function getRev()
+    public function getRevision()
     {
-        return $this->rev;
+        return $this->revision;
     }
 
     public function toArray()

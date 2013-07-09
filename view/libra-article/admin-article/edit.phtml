@@ -20,7 +20,7 @@
       <?php
         }
       }?>
-      <div class="pull-right text-info"><?php echo $this->translate(sprintf('Revision: #%d', $article ? $article->getRev() : 0)) ?></div>
+      <div class="pull-right text-info"><?php echo $this->translate(sprintf('Revision: #%d', $article ? $article->getRevision() : 0)) ?></div>
 <?php
     $form->prepare();
     $form->setAttribute('action', $this->url('admin/libra-article/article', array(
