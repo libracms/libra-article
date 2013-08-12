@@ -1,6 +1,6 @@
 {
     "name":         "libra/libra-article",
-    "type":         "library",
+    "type":         "asset-aware",
     "description":  "Article module for Libra CMS",
     "keywords":     ["zf", "zf2", "zendframework", "cms", "libra"],
     "homepage":     "http://www.ejoom.com/libra-cms/",
