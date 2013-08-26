@@ -11,6 +11,7 @@ Use \tidy;
  * Description of ArticleModel
  * dummy model for IndexController, It is not using now
  *
+ * @deprecated since version 0.4.2
  * @author duke
  */
 class ArticleModel

@@ -19,10 +19,9 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
 
     public function getSitemapConfig($sl)
     {
-        $em = $sl->get('Doctrine\ORM\EntityManager');
-        $model = new Model\ArticleModel($em);
+        $service = $sl->get('LibraArticle\Service\Article');
         $urlHelper = $sl->get('ViewRenderer')->plugin('url');
-        $urlsets = $model->getSitemap($urlHelper);
+        $urlsets = $service->getSitemap($urlHelper);
         return $urlsets;
     }
 
@@ -38,13 +37,8 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
     public function getServiceConfig()
     {
         return array(
-            'factories' => array(
-                'LibraArticle\ServiceArticle' => function($sl) {
-                    $em = $sl->get('Doctrine\ORM\EntityManager');
-                    $instance = new Service\Article();
-                    $instance->setEntityManager($em);
-                    return $instance;
-                },
+            'invokables' => array(
+                'LibraArticle\Service\Article' => 'LibraArticle\Service\Article',
             ),
         );
     }

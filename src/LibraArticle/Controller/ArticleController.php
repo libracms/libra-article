@@ -16,13 +16,14 @@ class ArticleController extends AbstractArticleController
     {
         $alias  = $this->params('alias');
         $locale = $this->params('locale', '');
-        $article = $this->getRepository()->findByAliasAndLocale($alias, $locale);
+        $service = $this->getServiceLocator()->get('LibraArticle\Service\Article');
+        $article = $service->getArticle($alias, $locale);
         if (!$article) {
             return $this->notFoundAction();
         }
         $this->getEventManager()->trigger('view', $this, array('article' => $article));
 
-        $this->getModel()->tidifyContent($article);
+        $service->tidifyContent($article);
 
         $view = new ViewModel(array(
             'alias' => $alias,

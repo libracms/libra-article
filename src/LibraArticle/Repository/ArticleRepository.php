@@ -16,7 +16,7 @@ class ArticleRepository extends EntityRepository
      * @param array $params
      * @return Article
      */
-    public function findByAliasAndLocale($alias, $locale, $oprions = array())
+    public function findByAliasAndLocale($alias, $locale = '', $oprions = array())
     {
         $criteria = array(
             'alias'  => $alias,
@@ -25,7 +25,7 @@ class ArticleRepository extends EntityRepository
         );
         $article = $this->findOneBy($criteria);
 
-        if (!$article) {
+        if (!$article && $locale !== '') {
             //look for all '' locales
             $criteria['locale'] = '';
             $article = $this->findOneBy($criteria);

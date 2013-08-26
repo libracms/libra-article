@@ -3,25 +3,25 @@
 namespace LibraArticle\Controller;
 
 use Doctrine\ORM\ORMInvalidArgumentException;
-use Zend\Stdlib\RequestInterface as Request;
-use Zend\Stdlib\ResponseInterface as Response;
+use Libra\Mvc\Controller\AbstractAdminActionController;
 use Zend\View\Model\ViewModel;
 
-class AdminArticlesController extends AbstractArticleController
+class AdminArticlesController extends AbstractAdminActionController
 {
-
     public function viewAction()
     {
-        $groups = $this->getRepository()->findAllAsGroups();
+        $service = $this->getServiceLocator()->get('LibraArticle\Service\Article');
+        $groups = $service->getGroups();
         return new ViewModel(array(
             'groups'   => $groups,
             'messages' => $this->flashMessenger()->getMessages(),
         ));
     }
 
-    public function update($action = 'unpiblish', $plural = null)
+    protected function update($action = 'unpiblish')
     {
         $ids = $this->params()->fromPost('ids', array());
+        $service = $this->getServiceLocator()->get('LibraArticle\Service\Article');
 
         if (empty($ids)) {
             $this->flashMessenger()->addMessage('No article was selected');
@@ -30,21 +30,21 @@ class AdminArticlesController extends AbstractArticleController
 
         foreach ($ids as $id) {
             try {
-                $article = $this->getRepository()->find($id);
+                $article = $service->getArticle($id);
                 switch ($action) {
                     case 'unpublish':
-                        $article->setState('unpublished');
+                        $service->unpublish($article);
                         $message = '%d articles was unpublished successfully';
                         break;
 
                     case 'publish':
-                        $article->setState('published');
+                        $service->publish($article);
                         $message = '%d articles was published successfully';
                         break;
 
                     case 'remove':
+                        $service->remove($article);
                         $message = '%d articles was removed successfully';
-                        $this->getEntityManager()->remove($article);
                         break;
 
                     default:
@@ -56,7 +56,6 @@ class AdminArticlesController extends AbstractArticleController
                 return $this->redirect()->toRoute();
             }
         }
-        $this->getEntityManager()->flush();
         $this->flashMessenger()->addMessage(sprintf($message, count($ids)));
         return $this->redirect()->toRoute();
     }
@@ -74,17 +73,5 @@ class AdminArticlesController extends AbstractArticleController
     public function unpublishAction()
     {
         return $this->update('unpublish');
-    }
-
-    public function dispatch(Request $request, Response $response = null)
-    {
-        $user = $this->zfcuserauthentication()->getIdentity();
-        if (!$user) {
-            $this->layout()->setTemplate('layout/admin-default/login-layout');
-            return $this->redirect()->toRoute('zfcuser/login');
-            return $this->redirect()->toRoute('admin/libra-app/login');
-        }
-
-        return parent::dispatch($request, $response);
     }
 }
