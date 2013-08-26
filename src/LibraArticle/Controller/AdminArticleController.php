@@ -35,6 +35,7 @@ class AdminArticleController extends AbstractAdminActionController
                         $id = $article->getId();  //redutant
                         $this->getEventManager()->trigger('create.post', $this, array('article' => $article));
                     } else {
+                        $article = $service->getArticle($id);
                         $article = $service->update($article, $data);
                         $this->getEventManager()->trigger('update.post', $this, array('article' => $article));
                     }

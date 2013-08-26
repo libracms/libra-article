@@ -37,9 +37,9 @@ class ArticleFilter extends InputFilter
         if (LibraModuleManagerModule::isModulePresent('LibraLocale')) {
             $this->add(array(
                 'name'        => 'locale',
-                'required'   => false,
+                'required'    => true,
                 'allow_empty' => true,
-                'filters'    => array(
+                'filters' => array(
                     array(
                         'name' => 'StringTrim',
                     ),

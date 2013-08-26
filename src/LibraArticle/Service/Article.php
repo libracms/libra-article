@@ -56,8 +56,8 @@ class Article extends AbstractEntityManagerProvider
         $article->setState(ArticleEntity::STATE_PUBLISHED);
         $article->setUid($uid ?: uniqid());
         $article->setRev(0);
-        $this->em->persist($article);
-        $this->em->flush($article);
+        $this->getEntityManager()->persist($article);
+        $this->getEntityManager()->flush($article);
         return $article;
     }
 
@@ -77,10 +77,11 @@ class Article extends AbstractEntityManagerProvider
             'metaKeywords' => $data['metaKeywords'],
             'metaDescription' => $data['metaDescription']
         ));
-        $article->setRev($article->getRev() + 1);
+        $article->setRevision($article->getRevision() + 1);
         if (isset($data['locale'])) $article->setLocale($data['locale']);
-        $this->em->persist($article);
-        $this->em->flush($article);
+        $em = $this->getEntityManager();
+        $em->persist($article);
+        $em->flush($article);
         return $article;
     }
 
