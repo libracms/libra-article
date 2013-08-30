@@ -31,9 +31,6 @@ class ArticleForm extends Form
                 'type' => 'hidden',
             ),
         ));
-
-        $this->setUseInputFilterDefaults(false);  //fix for overriding locale options
-
         if (LibraModuleManagerModule::isModulePresent('LibraLocale')) {
             $locales = array_combine(LocaleModule::getLocales(), LocaleModule::getLocales());
             $locales = array_merge(array('' => 'All'), $locales);
