@@ -2,12 +2,11 @@
 
 namespace LibraArticle\Controller;
 
+use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-class ArticleController extends AbstractArticleController
+class ArticleController extends AbstractActionController
 {
-    protected $entityName = 'LibraArticle\Entity\Article';
-
     /**
      * Display the article
      * @return ViewModel
