@@ -11,7 +11,7 @@
 
     "require": {
         "php":                              ">=5.3.3",
-        "libra/libra-app":                  "dev-master",
+        "libra/libra-app":                  "~0.5",
         "doctrine/doctrine-module":         "~0.7",
         "doctrine/doctrine-orm-module":     "~0.7"
     },
@@ -21,6 +21,12 @@
         "classmap": [
             "Module.php"
         ]
+    },
+
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.5.x-dev"
+        }
     },
 
     "suggest": {
