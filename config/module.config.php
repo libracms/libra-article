@@ -6,7 +6,7 @@ return array(
                 'type' => 'Segment',
                 'priority' => -100,
                 'options' => array(
-                    'route' => '[/:alias]',
+                    'route' => '/article[/:alias]',
                     'locale_aware' => false,
                     'constraints' => array(
                         'alias'      => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -19,17 +19,6 @@ return array(
                         'alias'      => 'home',
                     ),
                 )
-            ),
-            'home' => array(
-                'options' => array(
-                    'locale_aware' => false,
-                    'defaults' => array(
-                        'module'     => 'libra-article',
-                        'controller' => 'article',
-                        'action'     => 'view',
-                        'alias'      => 'home',
-                    ),
-                ),
             ),
             /*** admin route */
             'admin' => array(

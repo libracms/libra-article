@@ -11,13 +11,9 @@
 
     "require": {
         "php":                              ">=5.3.3",
-        "libra/libra":                      "dev-master",
-        "libra/libra-module-manager":       "dev-master",
-        "libra/libra-app":                  "dev-master"
-    },
-
-    "require-dev": {
-        
+        "libra/libra-app":                  "dev-master",
+        "doctrine/doctrine-module":         "~0.7",
+        "doctrine/doctrine-orm-module":     "~0.7"
     },
 
     "autoload": {
@@ -27,14 +23,9 @@
         ]
     },
 
-    "provide": {
-      
-    },
-
     "suggest": {
         "libra/ckeditor-assets": "Add ckeditor for visual editing articles",
         "libra/ckfinder-assets": "Add ckfinder for visual uploading images",
         "libra/libra-locale":    "Adds locale depending articles"
     }
-
 }

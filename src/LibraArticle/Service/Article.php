@@ -166,12 +166,16 @@ class Article extends AbstractEntityManagerProvider
     /**
      * tidies the article content
      */
-    public function tidifyContent(ArticleEntity $article, $options = array(
+    public function tidifyContent(
+        ArticleEntity $article,
+        $options = array(
             'indent'         => true,
             'indent-spaces'  => 4,
             'wrap'           => 120,
             'show-body-only' => true,
-        ), $encoding = 'utf8')
+        ),
+        $encoding = 'utf8'
+    )
     {
         if (!class_exists('tidy')) {
             return false;

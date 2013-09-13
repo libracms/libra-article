@@ -89,5 +89,4 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
     public function onBootstrap(MvcEvent $e)
     {
     }
-
 }
