@@ -85,10 +85,15 @@ class Article extends AbstractEntityManagerProvider
         return $article;
     }
 
-    public function getSitemap(\Zend\View\Helper\Url $urlHelper)
+    /**
+     * Return array if available articles
+     * @param \Zend\View\Helper\Url $urlHelper
+     * @return array()
+     */
+    public function getSitemap($urlHelper)
     {
         $criteria = array(
-            'state'  => Article::STATE_PUBLISHED,
+            'state'  => ArticleEntity::STATE_PUBLISHED,
         );
         $orderBy = array('ordering' => 'ASC');
         $articles = $this->getRepository()->findBy($criteria, $orderBy);
