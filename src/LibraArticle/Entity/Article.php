@@ -42,7 +42,7 @@ class Article extends AbstractEntityParams
     protected $id;
     /**
      * all locales by default
-     * @ORM\Column
+     * @ORM\Column(nullable=true)
      * @var string
      */
     protected $locale;

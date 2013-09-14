@@ -5,6 +5,7 @@ namespace LibraArticle\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use LibraArticle\Module;
+use LibraModuleManager\Module as ModuleManager;
 
 class ArticleController extends AbstractActionController
 {
@@ -15,16 +16,24 @@ class ArticleController extends AbstractActionController
     public function viewAction()
     {
         $alias  = $this->params('alias');
-        if (Module::getOption('consider_locale')) {
-            $locale = \Locale::getDefault();
-            //$localeAlias = $this->params('locale', '');  //@todo: should be used instead of locale
+        if (ModuleManager::isModulePresent('LibraLocale')) {
+            $locale = $this->params('locale', '');
         } else {
             $locale = '';
         }
         $service = $this->getServiceLocator()->get('LibraArticle\Service\Article');
         $article = $service->getArticle($alias, $locale);
         if (!$article) {
-            return $this->notFoundAction();
+            // Compatibility mode to detect by locale.
+            // Will be removed in 0.6.0
+            if (ModuleManager::isModulePresent('LibraLocale')) {
+                $locale = \Locale::getDefault();
+                $article = $service->getArticle($alias, $locale);
+            }
+
+            if (!$article) {
+                return $this->notFoundAction();
+            }
         }
         $this->getEventManager()->trigger('view', $this, array('article' => $article));
 
