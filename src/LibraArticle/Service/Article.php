@@ -38,7 +38,7 @@ class Article extends AbstractEntityManagerProvider
     public function createFromForm($data, $uid = null)
     {
         $hydrator = new ClassMethods(true);
-        $article = new Article();
+        $article = new ArticleEntity();
         $hydrator->hydrate($data, $article);
 
         $article->setParams(array(
