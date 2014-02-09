@@ -55,7 +55,7 @@ class Article extends AbstractEntityManagerProvider
         $article->setOrdering(0);
         $article->setState(ArticleEntity::STATE_PUBLISHED);
         $article->setUid($uid ?: uniqid());
-        $article->setRev(0);
+        $article->setRevision(0);
         $this->getEntityManager()->persist($article);
         $this->getEntityManager()->flush($article);
         return $article;
