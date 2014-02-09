@@ -30,7 +30,7 @@ class AdminArticlesController extends AbstractAdminActionController
 
         foreach ($ids as $id) {
             try {
-                $article = $service->getArticle($id);
+                $article = $service->getArticle((int)$id);
                 switch ($action) {
                     case 'unpublish':
                         $service->unpublish($article);
