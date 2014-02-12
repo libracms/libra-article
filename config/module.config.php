@@ -29,6 +29,8 @@ return array(
                             'route' => '/article',
                             'defaults' => array(
                                 'module'     => 'libra-article',
+                                'controller' => 'admin-articles',
+                                'action'     => 'view',
                             ),
                         ),
                         'may_terminate' => true,
@@ -61,9 +63,9 @@ return array(
                             'article-restful' => array(
                                 'type' => 'Segment',
                                 'options' => array(
-                                    'route' => '/[:id]',
+                                    'route' => '/:id',
                                     'constraints' => array(
-                                        'id'         => '[0-9]*',
+                                        'id'         => '[0-9]+',
                                     ),
                                     'defaults' => array(
                                         'controller' => 'admin-article-restful',
