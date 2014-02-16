@@ -43,9 +43,10 @@ class FormCkeditor extends FormTextarea
         if (!class_exists('CKEditor') || !file_exists('public' . $this->basePath)) {
             return parent::render($element);
         }
-        
+
         $content = (string) $element->getValue();
         $ckeditor = new \CKEditor($layoutBasePath . $this->basePath);
+        $ckeditor->config['height'] = 400;
         if (class_exists('CKFinder')) {
             $_SESSION['IsAuthorized'] = true;
             \CKFinder::SetupCKEditor($ckeditor, $layoutBasePath . $this->basePathFinder);
