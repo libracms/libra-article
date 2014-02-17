@@ -114,6 +114,10 @@ class Article extends AbstractEntityManagerProvider
 
     protected function highlightKeywords($keywords, $subject)
     {
+        if ($keywords == '') {
+            return $subject;
+        }
+
         if (strpos($keywords, ',') !== false) {
             $keywords = substr($keywords, 0, strpos($keywords, ','));
         }
@@ -160,7 +164,7 @@ class Article extends AbstractEntityManagerProvider
                 <div>%4$s</div>
             ',
             $this->highlightKeywords($article->getParam('metaKeywords'), substr($headTitle, 0, 70)),
-            $urlHelper->fromRoute('libra-article', array('alias' => $article->getAlias())),
+            $urlHelper->fromRoute('libra-article', array('alias' => $article->getAlias(), 'locale' => $article->getLocale())),
             $this->highlightKeywords($article->getParam('metaKeywords'), $breadcrumb),
             $this->highlightKeywords($article->getParam('metaKeywords'), substr($article->getParam('metaDescription'), 0, 170))
         );
