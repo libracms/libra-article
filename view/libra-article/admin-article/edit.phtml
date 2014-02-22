@@ -39,23 +39,23 @@
         echo $this->formSelect($form->get('locale'));
         echo $this->formElementErrors($form->get('locale'));
     }
-    echo $this->formLabel($form->get('heading'));
-    echo $this->formInput($form->get('heading'));
-    echo $this->formElementErrors($form->get('heading'));
     echo $this->formLabel($form->get('alias'));
     echo $this->formInput($form->get('alias'));
     echo $this->formElementErrors($form->get('alias'));
     echo $this->formLabel($form->get('headTitle'));
     echo $this->formInput($form->get('headTitle'));
     echo $this->formElementErrors($form->get('headTitle'));
-    echo '<div id="metaKeywordsLength" class="pull-right"></div>';
-    echo $this->formLabel($form->get('metaKeywords'));
-    echo $this->formInput($form->get('metaKeywords'));
-    echo $this->formElementErrors($form->get('metaKeywords'));
+    echo $this->formLabel($form->get('heading'));
+    echo $this->formInput($form->get('heading'));
+    echo $this->formElementErrors($form->get('heading'));
     echo '<div id="metaDescriptionLength" class="pull-right"></div>';
     echo $this->formLabel($form->get('metaDescription'));
     echo $this->formInput($form->get('metaDescription'));
     echo $this->formElementErrors($form->get('metaDescription'));
+    echo '<div id="metaKeywordsLength" class="pull-right"></div>';
+    echo $this->formLabel($form->get('metaKeywords'));
+    echo $this->formInput($form->get('metaKeywords'));
+    echo $this->formElementErrors($form->get('metaKeywords'));
     $googlePreview = $this->googlePreview ?: $this->translate('Preview will be available after save article');
     echo <<<GP
     <div id="googlePreview">
@@ -63,7 +63,6 @@
         <div>$googlePreview</div>
     </div>
 GP;
-    echo $this->formLabel($form->get('content'));
     echo $this->formCkeditor($form->get('content'));
     echo $this->formElementErrors($form->get('content'));
     echo '<br />';
