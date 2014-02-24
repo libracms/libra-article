@@ -146,5 +146,10 @@ return array(
                 'wrap'           => 120,
                 'show-body-only' => true,
         ),
+
+        // CKEditor options
+        'ckeditor' => array(
+            'height' => '400',
+        ),
     ),
 );
