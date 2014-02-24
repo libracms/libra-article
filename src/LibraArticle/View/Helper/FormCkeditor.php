@@ -46,7 +46,8 @@ class FormCkeditor extends FormTextarea
 
         $content = (string) $element->getValue();
         $ckeditor = new \CKEditor($layoutBasePath . $this->basePath);
-        $ckeditor->config['height'] = 400;
+        $ckeditorOptions = \LibraArticle\Module::getOption('ckeditor');
+        $ckeditor->config = $ckeditorOptions;
         if (class_exists('CKFinder')) {
             $_SESSION['IsAuthorized'] = true;
             \CKFinder::SetupCKEditor($ckeditor, $layoutBasePath . $this->basePathFinder);

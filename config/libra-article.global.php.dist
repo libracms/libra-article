@@ -19,6 +19,17 @@ $config = array(
         'indent-spaces'  => 4,
         'wrap'           => 120,
     ),
+
+    // CKEditor options
+    // You can see full list at http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html
+    'ckeditor' => array(
+        /* Uncomment row below to apply that css to editor in admin */
+        //'contentsCss' => '/css/ckeditor.css'
+
+        // It sets the height of editor field in admin
+        // Default is 400px
+        //'height' => '400'
+    ),
 );
 
 $libraArticleConfig = array(
