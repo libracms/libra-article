@@ -35,6 +35,12 @@ class Article extends AbstractEntityManagerProvider
         return $article;
     }
 
+    /**
+     * Create an save artice in the DB
+     * @param array $data
+     * @param string $uid
+     * @return \LibraArticle\Entity\Article
+     */
     public function createFromForm($data, $uid = null)
     {
         $hydrator = new ClassMethods(true);
@@ -58,6 +64,7 @@ class Article extends AbstractEntityManagerProvider
         $article->setRevision(0);
         $this->getEntityManager()->persist($article);
         $this->getEntityManager()->flush($article);
+
         return $article;
     }
 

@@ -33,13 +33,19 @@ class AdminArticleController extends AbstractAdminActionController
                     if ($id === 0) {
                         $article = $service->createFromForm($data, $uid);
                         $id = $article->getId();  //redutant
-                        $this->getEventManager()->trigger('create.post', $this, array('article' => $article));
+                        $responses = $this->getEventManager()->trigger('create.post', $this, array('article' => $article));
                     } else {
                         $article = $service->getArticle($id);
                         $article = $service->update($article, $data);
-                        $this->getEventManager()->trigger('update.post', $this, array('article' => $article));
+                        $responses =  $this->getEventManager()->trigger('update.post', $this, array('article' => $article));
                     }
-                    $this->getEventManager()->trigger('save.post', $this, array('article' => $article));
+                    $responsesOnSave = $this->getEventManager()->trigger('save.post', $this, array('article' => $article));
+
+                    // Save article if there was detected changes
+                    if ($responsesOnSave->contains(true) || $responses->contains(true)) {
+                        $service->getEntityManager()->flush($article);
+                    }
+
                     $this->getResponse()->setStatusCode(201);
                     $this->flashMessenger()->setNamespace('libra-article-form-ok')->addMessage('Article is saved');
                     return $this->redirect()->toRoute('admin/libra-article/article', array('id' => $id));
