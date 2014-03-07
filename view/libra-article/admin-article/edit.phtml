@@ -64,7 +64,11 @@
     </div>
 GP;
     echo $this->formLabel($form->get('content'));
-    echo $this->formCkeditor($form->get('content'));
+    if (strtolower($this->contentEditor) === 'ckeditor') {
+        echo $this->formCkeditor($form->get('content'));
+    } else {
+        echo $this->formTextarea($form->get('content'));
+    }
     echo $this->formElementErrors($form->get('content'));
     echo '<br />';
     echo $this->formElement($form->get('csrf'));

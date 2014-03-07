@@ -20,6 +20,11 @@ $config = array(
         'wrap'           => 120,
     ),
 
+    // Disable CKEditor by setting empty string or fale
+    // You can set here any another editor (not implemented)
+    // default: 'CKEditor'
+    // 'content_editor' => false,
+
     // CKEditor options
     // You can see full list at http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html
     'ckeditor' => array(

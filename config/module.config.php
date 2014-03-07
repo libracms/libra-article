@@ -147,6 +147,9 @@ return array(
                 'show-body-only' => true,
         ),
 
+        // Enable CKEditor
+        'content_editor' => 'CKEditor',
+
         // CKEditor options
         'ckeditor' => array(
             'height' => '400',

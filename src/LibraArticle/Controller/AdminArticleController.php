@@ -8,6 +8,7 @@ use Libra\Mvc\Controller\AbstractAdminActionController;
 use LibraArticle\Form\ArticleFilter;
 use LibraArticle\Form\ArticleForm;
 use Zend\EventManager\Event;
+use LibraArticle\Module;
 use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\ViewModel;
 
@@ -94,6 +95,8 @@ class AdminArticleController extends AbstractAdminActionController
             }
         }
 
+        $contentEditor = Module::getOption('content_editor');
+
         return new ViewModel(array(
             'form'    => $form,
             'article' => $article,
@@ -102,6 +105,7 @@ class AdminArticleController extends AbstractAdminActionController
             'googlePreview' => $service->getGooglePreviewHtml($article, $this->url()),
             'formOkMessages' => $this->flashMessenger()->setNamespace('libra-article-form-ok')->getMessages(),
             'formErrorMessages' => $this->flashMessenger()->setNamespace('libra-article-form-err')->getCurrentMessages(),
+            'contentEditor'  => $contentEditor,
         ));
     }
 }
