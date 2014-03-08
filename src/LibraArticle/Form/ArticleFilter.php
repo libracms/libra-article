@@ -84,6 +84,11 @@ class ArticleFilter extends InputFilter
         $this->add(array(
             'name'       => 'content',
             'required'   => false,
+            'filters'    => array(
+                array(
+                    'name' => 'Libra\Filter\StripCarriageReturn',
+                ),
+            ),
         ));
     }
 }
