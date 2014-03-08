@@ -45,7 +45,7 @@ class Article extends AbstractEntityManagerProvider
     {
         $hydrator = new ClassMethods(true);
         $article = new ArticleEntity();
-        $hydrator->hydrate($data, $article);
+        $hydrator->hydrate((array)$data, $article);
 
         $article->setParams(array(
             'headTitle' => $data['headTitle'],
