@@ -95,12 +95,17 @@ class ArticleForm extends Form
             ),
         ));
         $this->add(array(
+            'type' => 'LibraArticle\Form\Element\CKEditor',
             'name' => 'content',
             'options' => array(
                 'label' => 'Content:',
+                // Config for ckedit
+                'config' => array(
+                    // Like new heght or any other
+                    //'height' => 500,
+                ),
             ),
             'attributes' => array(
-                'type' => 'ckeditor',
                 'rows' => 8,
                 'class' => 'span12',
             ),

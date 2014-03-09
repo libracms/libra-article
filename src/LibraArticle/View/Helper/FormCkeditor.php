@@ -23,7 +23,7 @@ class FormCkeditor extends FormTextarea
     public $basePathFinder  = '/vendor/libra/ckfinder-assets/';
 
     /**
-     * Render a form <textarea> element from the provided $element
+     * Render a form &gth;textarea> element from the provided $element
      *
      * @param  ElementInterface $element
      * @return string
@@ -47,6 +47,13 @@ class FormCkeditor extends FormTextarea
         $content = (string) $element->getValue();
         $ckeditor = new \CKEditor($layoutBasePath . $this->basePath);
         $ckeditorOptions = \LibraArticle\Module::getOption('ckeditor');
+        // For compatibility
+        if (method_exists($element, 'getConfig')) {
+            $elementConfig = $element->getConfig();
+        } else {
+            $elementConfig = (array) $element->getOption('config');
+        }
+        $ckeditorOptions = array_merge($ckeditorOptions, $elementConfig);
         $ckeditor->config = $ckeditorOptions;
         if (class_exists('CKFinder')) {
             $_SESSION['IsAuthorized'] = true;
