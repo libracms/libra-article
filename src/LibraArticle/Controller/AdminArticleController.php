@@ -28,7 +28,19 @@ class AdminArticleController extends AbstractAdminActionController
             'form' => $form,
         ));
 
-        $redirectUrl = $this->url()->fromRoute('admin/libra-article/article', array('action'=> 'edit', 'id' => $id));
+        $redirectUrl = $this->url()->fromRoute(
+            'admin/libra-article/article',
+            array(
+                'action'=> 'edit',
+                'id' => $id
+            ),
+            array(
+                'query' => array(
+                    'uid' => $uid
+                )
+            )
+        );
+
         $prg = $this->prg($redirectUrl, true);
         if ($prg instanceof Response) {
             return $prg;

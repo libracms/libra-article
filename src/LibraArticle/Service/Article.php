@@ -52,9 +52,7 @@ class Article extends AbstractEntityManagerProvider
             'metaKeywords' => $data['metaKeywords'],
             'metaDescription' => $data['metaDescription']
         ));
-        $article->setUid(uniqid());
         $article->setCreated(null);
-        $article->setUid(uniqid());
         $article->setCreatedBy(0);
         $article->setModified(null);
         $article->setModifiedBy(0);
