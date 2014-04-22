@@ -10,10 +10,9 @@
     ],
 
     "require": {
-        "php":                              ">=5.3.3",
         "libra/libra-app":                  "~0.5",
-        "doctrine/doctrine-module":         "~0.7",
-        "doctrine/doctrine-orm-module":     "~0.7"
+        "doctrine/doctrine-module":         "~0.8",
+        "doctrine/doctrine-orm-module":     "~0.8"
     },
 
     "autoload": {
