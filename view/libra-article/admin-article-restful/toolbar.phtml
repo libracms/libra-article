@@ -1,12 +1,12 @@
-<div class="span12" id="toolbar-box">
+<div class="col-sm-12" id="toolbar-box">
     <div id="toolbar" class="btn-toolbar">
       <div class="btn-group">
-          <button class="btn" title="Add New"
+          <button class="btn btn-default" title="Add New"
             form="<?php echo $formId ?>"
             formmethod="<?php echo $buttons->addnew->method ?: 'GET' ?>"
             formaction="<?php echo $buttons->addnew->formAction ?>"
           >
-            <span class="icon-plus"></span>
+            <span class="glyphicon glyphicon-plus"></span>
           </button>
           <button class="btn" title="Publish"
             form="<?php echo $formId ?>"

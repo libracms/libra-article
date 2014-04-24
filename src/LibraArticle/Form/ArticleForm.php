@@ -2,7 +2,7 @@
 
 /**
  * eJoom.com
- * 
+ *
  * This source file is subject to the new BSD license.
  */
 
@@ -38,10 +38,13 @@ class ArticleForm extends Form
             );
             $locales = array_merge(array('' => 'All'), $locales);
             $locale = new Element\Select('locale', array(
+                //'twb-layout' => \TwbBundle\Form\View\Helper\TwbBundleForm::LAYOUT_HORIZONTAL,
                 'label' => 'Locale: *',
                 'value_options' => $locales,
+                //'column-size' => 'sm-2',
+                //'label_attributes' => array('class' => 'col-sm-2'),
             ));
-            $locale->setAttribute('class', 'span2');
+            $locale->setAttribute('class', 'span2 form-control');
             $this->add($locale);
         }
         $this->add(array(
@@ -51,7 +54,7 @@ class ArticleForm extends Form
             ),
             'attributes' => array(
                 'type' => 'text',
-                'class' => 'span12',
+                'class' => 'span12 form-control',
             ),
         ));
         $this->add(array(
@@ -61,7 +64,7 @@ class ArticleForm extends Form
             ),
             'attributes' => array(
                 'type' => 'text',
-                'class' => 'span12',
+                'class' => 'span12 form-control',
             ),
         ));
         $this->add(array(
@@ -71,7 +74,7 @@ class ArticleForm extends Form
             ),
             'attributes' => array(
                 'type' => 'text',
-                'class' => 'span12',
+                'class' => 'span12 form-control',
             ),
         ));
         $this->add(array(
@@ -81,7 +84,7 @@ class ArticleForm extends Form
             ),
             'attributes' => array(
                 'type' => 'text',
-                'class' => 'span12',
+                'class' => 'span12 form-control',
             ),
         ));
         $this->add(array(
@@ -91,7 +94,7 @@ class ArticleForm extends Form
             ),
             'attributes' => array(
                 'type' => 'text',
-                'class' => 'span12',
+                'class' => 'span12 form-control',
             ),
         ));
         $this->add(array(
@@ -107,7 +110,7 @@ class ArticleForm extends Form
             ),
             'attributes' => array(
                 'rows' => 8,
-                'class' => 'span12',
+                'class' => 'span12 form-control',
             ),
         ));
         $this->add(array(
@@ -119,6 +122,7 @@ class ArticleForm extends Form
                 'type' => 'submit',
                 'value' => 'Save',
                 'formmethod' => 'POST',
+                'class' => 'btn btn-primary',
             ),
         ));
 
