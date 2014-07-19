@@ -24,7 +24,9 @@
 
     "extra": {
         "branch-alias": {
-            "dev-master": "0.5.x-dev"
+            "dev-master": "0.5.x-dev",
+            "dev-twb3": "0.6.x-dev",
+            "dev-dev": "0.6.x-dev"
         }
     },
 
