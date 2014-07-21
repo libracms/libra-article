@@ -138,6 +138,24 @@ return array(
         ),
     ),
 
+    'zfc_rbac' => [
+        'guards' => [
+            'ZfcRbac\Guard\RouteGuard' => [
+                'admin/libra-article' => ['admin', 'manager'],
+            ],
+            'ZfcRbac\Guard\ControllerGuard' => [
+                [
+                    'controller' => 'libra-article/admin-article',
+                    'roles' => ['admin', 'manager'],
+                ],
+                [
+                    'controller' => 'libra-article/admin-articles',
+                    'roles' => ['admin', 'manager'],
+                ],
+            ],
+        ],
+    ],
+
     //defaults
     'libra_article' => array(
         'tidy_config' => array(

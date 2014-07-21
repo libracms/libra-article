@@ -64,7 +64,7 @@ class AdminArticlesController extends AbstractAdminActionController
     {
         return $this->update('remove');
     }
-    
+
     public function publishAction()
     {
         return $this->update('publish');
